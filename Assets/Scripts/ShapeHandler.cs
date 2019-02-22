@@ -8,28 +8,31 @@ public class ShapeHandler : MonoBehaviour {
     GridHandler gridHandler;
     float fallTimer = 0F;
     public float fallDelay = 1F;
-    public bool skipFallForOneFrame = false;
+    public bool skipFallForOneFrame = true;
+    public bool allowRotatation = true;
+    public bool limitRotatation = false;
 
+    Rotate ReverseRotate => transform.rotation.eulerAngles.z > 0 ? Rotate.CounterClockWise : Rotate.ClockWise;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start() {
         gridHandler = FindObjectOfType<GridHandler>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update() {
         skipFallForOneFrame = false;
 
         CheckUserInput();
 
         fallTimer += Time.deltaTime;
 
-        if(fallTimer >= fallDelay)
+        if (fallTimer >= fallDelay)
         {
             fallTimer = 0F;
             if (!skipFallForOneFrame)
             {
-               // MoveTile(PossibleSteps.Down);
+                // MoveTile(PossibleSteps.Down);
             }
         }
 
@@ -44,7 +47,17 @@ public class ShapeHandler : MonoBehaviour {
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            RotateShapeIfValid(Rotate.ClockWise);
+            if (allowRotatation)
+            {
+                if (limitRotatation)
+                {
+                    RotateShapeIfValid(ReverseRotate);
+                }
+                else
+                {
+                    RotateShapeIfValid(Rotate.ClockWise);
+                }
+            }
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
@@ -65,8 +78,8 @@ public class ShapeHandler : MonoBehaviour {
 
     void RotateShapeIfValid(Rotate rotate)
     {
-        RotateShape(rotate, false);
-        CheckToReverseChange(()=> { RotateShape(rotate, true); });
+        RotateShape(rotate);
+        CheckToReverseChange(() => { RotateShape(ReverseRotate); });
     }
 
     void CheckToReverseChange(Action Reverser)
@@ -88,26 +101,25 @@ public class ShapeHandler : MonoBehaviour {
         switch (move)
         {
             case Move.Down:
-                positionOffset += Vector3.down; 
+                positionOffset += Vector3.down;
                 break;
             case Move.Up:
-                positionOffset += Vector3.up; 
+                positionOffset += Vector3.up;
                 break;
             case Move.Left:
-                positionOffset += Vector3.left; 
+                positionOffset += Vector3.left;
                 break;
             case Move.Right:
-                positionOffset += Vector3.right; 
+                positionOffset += Vector3.right;
                 break;
         }
 
         transform.position += reverse ? -positionOffset : positionOffset;
     }
 
-    void RotateShape(Rotate rotate, bool reverse)
+    void RotateShape(Rotate rotate)
     {
-        var zAxisRotationDegree =
-            ((rotate == Rotate.ClockWise && !reverse) || (rotate == Rotate.CounterClockWise && reverse)) ? 90 : -90;
+        var zAxisRotationDegree = rotate == Rotate.ClockWise ? 90 : -90;
 
         transform.Rotate(0, 0, zAxisRotationDegree);
     }
