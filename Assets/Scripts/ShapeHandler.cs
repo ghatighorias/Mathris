@@ -8,20 +8,16 @@ public class ShapeHandler : MonoBehaviour {
     GridHandler gridHandler;
     //Settings settings;
 
+    public Action ShapeLanded;
+
     public bool allowRotatation = true;
     public bool limitRotatation = false;
-
     public Rotate ReverseRotate => transform.rotation.eulerAngles.z > 0 ? Rotate.CounterClockWise : Rotate.ClockWise;
 
     // Use this for initialization
     void Start() {
         gridHandler = FindObjectOfType<GridHandler>();
         //settings = FindObjectOfType<Settings>();
-    }
-
-    // Update is called once per frame
-    void Update() {
-
     }
 
     public void MoveShapeIfValid(Move move)

@@ -13,7 +13,7 @@ public class Settings : MonoBehaviour {
 
     void Start()
     {
-        ActiveShape = SpawnRandomShape().GetComponent<ShapeHandler>();
+        SpawnRandomShape();
     }
 
     void Update()
@@ -35,6 +35,17 @@ public class Settings : MonoBehaviour {
                 }
             }
         }
+    }
+
+    void SpawnRandomShape()
+    {
+        ActiveShape = InstantiateRandomShape().GetComponent<ShapeHandler>();
+        ActiveShape.ShapeLanded = OnActiveShapeLanded;
+    }
+
+    void OnActiveShapeLanded()
+    {
+
     }
 
     void CheckUserInput()
@@ -68,7 +79,7 @@ public class Settings : MonoBehaviour {
         }
     }
 
-    GameObject SpawnRandomShape()
+    GameObject InstantiateRandomShape()
     {
         var randomShapeNumber = Random.Range(1, 7);
         var shapePrefix = "Tile";
@@ -103,6 +114,5 @@ public class Settings : MonoBehaviour {
 
         return (GameObject)Instantiate(Resources.Load<GameObject>(shapeFullName), shapeSpawnPosition, Quaternion.identity);
     }
-
 
 }
