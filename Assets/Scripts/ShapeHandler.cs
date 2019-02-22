@@ -6,8 +6,9 @@ using UnityEngine;
 public class ShapeHandler : MonoBehaviour {
 
     GridHandler gridHandler;
+    Settings settings;
+
     float fallTimer = 0F;
-    public float fallDelay = 1F;
     public bool skipFallForOneFrame = true;
     public bool allowRotatation = true;
     public bool limitRotatation = false;
@@ -17,22 +18,27 @@ public class ShapeHandler : MonoBehaviour {
     // Use this for initialization
     void Start() {
         gridHandler = FindObjectOfType<GridHandler>();
+        settings = FindObjectOfType<Settings>();
     }
 
     // Update is called once per frame
     void Update() {
+
         skipFallForOneFrame = false;
 
         CheckUserInput();
 
-        fallTimer += Time.deltaTime;
-
-        if (fallTimer >= fallDelay)
+        if (settings.allowAutomaticDrop)
         {
-            fallTimer = 0F;
-            if (!skipFallForOneFrame)
+            fallTimer += Time.deltaTime;
+
+            if (fallTimer >= settings.fallDelay)
             {
-                // MoveTile(PossibleSteps.Down);
+                fallTimer = 0F;
+                if (!skipFallForOneFrame)
+                {
+                    MoveShapeIfValid(Move.Down);
+                }
             }
         }
 
