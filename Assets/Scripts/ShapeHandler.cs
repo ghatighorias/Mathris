@@ -1,16 +1,19 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ShapeHandler : MonoBehaviour {
 
+    GridHandler gridHandler;
     float fallTimer = 0F;
     public float fallDelay = 1F;
     public bool skipFallForOneFrame = false;
 
+
 	// Use this for initialization
 	void Start () {
-		
+        gridHandler = FindObjectOfType<GridHandler>();
 	}
 	
 	// Update is called once per frame
@@ -26,7 +29,7 @@ public class ShapeHandler : MonoBehaviour {
             fallTimer = 0F;
             if (!skipFallForOneFrame)
             {
-                MoveTile(PossibleSteps.Down);
+               // MoveTile(PossibleSteps.Down);
             }
         }
 
@@ -36,50 +39,90 @@ public class ShapeHandler : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            MoveTile(PossibleSteps.Down);
+            MoveShapeIfValid(Move.Down);
             skipFallForOneFrame = true;
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            MoveTile(PossibleSteps.Rotate_Clockwise);
+            RotateShapeIfValid(Rotate.ClockWise);
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            MoveTile(PossibleSteps.Left);
+            MoveShapeIfValid(Move.Left);
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            MoveTile(PossibleSteps.Right);
+            MoveShapeIfValid(Move.Right);
         }
     }
 
-    void MoveTile(PossibleSteps step)
+    void MoveShapeIfValid(Move move)
     {
-        switch (step)
+        MoveShape(move, false);
+
+        CheckToReverseChange(() => { MoveShape(move, true); });
+    }
+
+    void RotateShapeIfValid(Rotate rotate)
+    {
+        RotateShape(rotate, false);
+        CheckToReverseChange(()=> { RotateShape(rotate, true); });
+    }
+
+    void CheckToReverseChange(Action Reverser)
+    {
+        foreach (Transform blockTransform in transform)
         {
-            case PossibleSteps.Down:
-                transform.position += Vector3.down;
-                break;
-            case PossibleSteps.Left:
-                transform.position += Vector3.left;
-                break;
-            case PossibleSteps.Right:
-                transform.position += Vector3.right;
-                break;
-            case PossibleSteps.Rotate_Clockwise:
-                transform.Rotate(Vector3.forward * 90);
-                break;
+            if (!gridHandler.IsInBound(blockTransform.position))
+            {
+                Reverser();
+                return;
+            }
         }
-        //Input.GetKeyDown(KeyCode.DownArrow)
-        
     }
 
-    public enum PossibleSteps
+    void MoveShape(Move move, bool reverse)
     {
-        Left,
-        Right,
-        Down,
-        Rotate_Clockwise
+        var positionOffset = Vector3.zero;
 
+        switch (move)
+        {
+            case Move.Down:
+                positionOffset += Vector3.down; 
+                break;
+            case Move.Up:
+                positionOffset += Vector3.up; 
+                break;
+            case Move.Left:
+                positionOffset += Vector3.left; 
+                break;
+            case Move.Right:
+                positionOffset += Vector3.right; 
+                break;
+        }
+
+        transform.position += reverse ? -positionOffset : positionOffset;
+    }
+
+    void RotateShape(Rotate rotate, bool reverse)
+    {
+        var zAxisRotationDegree =
+            ((rotate == Rotate.ClockWise && !reverse) || (rotate == Rotate.CounterClockWise && reverse)) ? 90 : -90;
+
+        transform.Rotate(0, 0, zAxisRotationDegree);
+    }
+
+    public enum Move
+    {
+        Up,
+        Down,
+        Left,
+        Right
+    }
+
+    public enum Rotate
+    {
+        ClockWise,
+        CounterClockWise
     }
 }
