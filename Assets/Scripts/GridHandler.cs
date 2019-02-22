@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class GridHandler : MonoBehaviour {
@@ -14,11 +15,12 @@ public class GridHandler : MonoBehaviour {
 
     void SetupBound()
     {
-        gridBound = new Bounds(transform.position, (Vector2)gridSize);
+        gridBound = new Bounds(transform.position, new Vector3(gridSize.x,gridSize.y, 100));
     }
 
     public bool IsInBound(Vector3 position)
     {
+
         return gridBound.Contains(position);
     }
 
@@ -29,5 +31,6 @@ public class GridHandler : MonoBehaviour {
         Gizmos.color = Color.yellow;
 
         Gizmos.DrawCube(gridBound.center, gridBound.size);
+
     }
 }
