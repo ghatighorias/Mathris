@@ -28,9 +28,15 @@ public class ShapeHandler : MonoBehaviour {
     public void MoveShapeIfValid(Move move)
     {
         var nextShapeLocation = GetNextShapeLocation(move, false);
-        if (RayTraceLocation(nextShapeLocation, transform.rotation) == RaytraceHitResultType.None)
+        var traceResult = RayTraceLocation(nextShapeLocation, transform.rotation);
+
+        if ( traceResult == RaytraceHitResultType.None)
         {
             transform.position = nextShapeLocation;
+        }
+        else if (move == Move.Down)
+        {
+            ShapeLanded?.Invoke();
         }
     }
 

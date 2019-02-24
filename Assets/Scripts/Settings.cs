@@ -45,7 +45,19 @@ public class Settings : MonoBehaviour {
 
     void OnActiveShapeLanded()
     {
+        var gridHandler = FindObjectOfType<GridHandler>();
 
+        var completedRows = gridHandler.AddToGrid(ActiveShape);
+
+        Destroy(ActiveShape.gameObject);
+
+        foreach (var rowId in completedRows)
+        {
+            gridHandler.RemoveRow(rowId);
+            gridHandler.ShiftRowDown(rowId + 1, 1);
+        }
+
+        SpawnRandomShape();
     }
 
     void CheckUserInput()
