@@ -165,7 +165,7 @@ Transform:
   m_GameObject: {fileID: 518985303}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -6, z: 0}
-  m_LocalScale: {x: 13, y: 1, z: 1}
+  m_LocalScale: {x: 10, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1880399623}
   m_RootOrder: 0
@@ -479,7 +479,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fallDelay: 1
   allowAutomaticDrop: 0
-  shapeSpawnPosition: {x: 0.5, y: 5.5, z: 0}
+  shapeSpawnPosition: {x: 0.5, y: 5, z: 0}
 --- !u!4 &2007972269
 Transform:
   m_ObjectHideFlags: 0
