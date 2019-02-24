@@ -27,38 +27,23 @@ public class ShapeHandler : MonoBehaviour {
 
     public void MoveShapeIfValid(Move move)
     {
-        var nextShapeLocation = MoveShape(move, false);
-        if (RayTraceLocation(nextShapeLocation) == RaytraceHitResultType.None)
+        var nextShapeLocation = GetNextShapeLocation(move, false);
+        if (RayTraceLocation(nextShapeLocation, transform.rotation) == RaytraceHitResultType.None)
         {
             transform.position = nextShapeLocation;
         }
-        //CheckToReverseChange(() => { MoveShape(move, true); });
     }
 
     public void RotateShapeIfValid(Rotate rotate)
     {
-        var nextShapeLocation = RotateShape(rotate);
-        if (RayTraceLocation(nextShapeLocation) == RaytraceHitResultType.None)
+        var nextShapeRotation = GetNextShapeRotation(rotate);
+        if (RayTraceLocation(transform.position, nextShapeRotation) == RaytraceHitResultType.None)
         {
-            transform.position = nextShapeLocation;
+            transform.rotation = nextShapeRotation;
         }
-        //CheckToReverseChange(() => { RotateShape(ReverseRotate); });
     }
 
-    void CheckToReverseChange(Action Reverser)
-    {
-        
-        //foreach (Transform blockTransform in transform)
-        //{
-        //    if (!gridHandler.IsInBound(blockTransform.position))
-        //    {
-        //        Reverser();
-        //        return;
-        //    }
-        //}
-    }
-
-    Vector3 MoveShape(Move move, bool reverse)
+    Vector3 GetNextShapeLocation(Move move, bool reverse)
     {
         var positionOffset = Vector3.zero;
 
@@ -82,22 +67,21 @@ public class ShapeHandler : MonoBehaviour {
         return (transform.position) + (reverse ? -positionOffset : positionOffset);
     }
 
-    Vector3 RotateShape(Rotate rotate)
+    Quaternion GetNextShapeRotation(Rotate rotate)
     {
         var zAxisRotationDegree = rotate == Rotate.ClockWise ? 90 : -90;
 
-        //transform.Rotate(0, 0, zAxisRotationDegree);
-        return Quaternion.Euler(0, 0, zAxisRotationDegree) * transform.position;
+        return transform.rotation * Quaternion.Euler(0, 0, zAxisRotationDegree);
     }
 
-    RaytraceHitResultType RayTraceLocation(Vector3 LocationToCheck)
+    RaytraceHitResultType RayTraceLocation(Vector3 LocationToCheck, Quaternion nextShapeRotation)
     {
         RaytraceHitResultType result = RaytraceHitResultType.None;
 
         foreach (Transform blockTransform in transform)
         {
-            //var hit = Physics2D.OverlapPoint(new Vector2(5, 0), LayerMask.GetMask("obstacle"));
-            var hit = Physics2D.OverlapPoint(blockTransform.localPosition + LocationToCheck, LayerMask.GetMask("obstacle"));
+            var blockNextLocation = nextShapeRotation * blockTransform.localPosition + LocationToCheck;
+            var hit = Physics2D.OverlapPoint(blockNextLocation, LayerMask.GetMask("obstacle"));
             if (hit != null)
             {
                 result = Settings.ConvertTag(hit.tag);
