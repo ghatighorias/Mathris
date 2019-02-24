@@ -9,10 +9,15 @@ public class ShapeHandler : MonoBehaviour {
     //Settings settings;
 
     public Action ShapeLanded;
-
+    int obstacleLayer;
     public bool allowRotatation = true;
     public bool limitRotatation = false;
     public Rotate ReverseRotate => transform.rotation.eulerAngles.z > 0 ? Rotate.CounterClockWise : Rotate.ClockWise;
+
+    void Awake()
+    {
+        obstacleLayer= LayerMask.GetMask("obstacle");
+    }
 
     // Use this for initialization
     void Start() {
@@ -22,30 +27,38 @@ public class ShapeHandler : MonoBehaviour {
 
     public void MoveShapeIfValid(Move move)
     {
-        MoveShape(move, false);
-
-        CheckToReverseChange(() => { MoveShape(move, true); });
+        var nextShapeLocation = MoveShape(move, false);
+        if (RayTraceLocation(nextShapeLocation) == RaytraceHitResultType.None)
+        {
+            transform.position = nextShapeLocation;
+        }
+        //CheckToReverseChange(() => { MoveShape(move, true); });
     }
 
     public void RotateShapeIfValid(Rotate rotate)
     {
-        RotateShape(rotate);
-        CheckToReverseChange(() => { RotateShape(ReverseRotate); });
+        var nextShapeLocation = RotateShape(rotate);
+        if (RayTraceLocation(nextShapeLocation) == RaytraceHitResultType.None)
+        {
+            transform.position = nextShapeLocation;
+        }
+        //CheckToReverseChange(() => { RotateShape(ReverseRotate); });
     }
 
     void CheckToReverseChange(Action Reverser)
     {
-        foreach (Transform blockTransform in transform)
-        {
-            if (!gridHandler.IsInBound(blockTransform.position))
-            {
-                Reverser();
-                return;
-            }
-        }
+        
+        //foreach (Transform blockTransform in transform)
+        //{
+        //    if (!gridHandler.IsInBound(blockTransform.position))
+        //    {
+        //        Reverser();
+        //        return;
+        //    }
+        //}
     }
 
-    void MoveShape(Move move, bool reverse)
+    Vector3 MoveShape(Move move, bool reverse)
     {
         var positionOffset = Vector3.zero;
 
@@ -64,28 +77,34 @@ public class ShapeHandler : MonoBehaviour {
                 positionOffset += Vector3.right;
                 break;
         }
-
-        transform.position += reverse ? -positionOffset : positionOffset;
+        //transform.position += reverse ? -positionOffset : positionOffset;
+        
+        return (transform.position) + (reverse ? -positionOffset : positionOffset);
     }
 
-    void RotateShape(Rotate rotate)
+    Vector3 RotateShape(Rotate rotate)
     {
         var zAxisRotationDegree = rotate == Rotate.ClockWise ? 90 : -90;
 
-        transform.Rotate(0, 0, zAxisRotationDegree);
+        //transform.Rotate(0, 0, zAxisRotationDegree);
+        return Quaternion.Euler(0, 0, zAxisRotationDegree) * transform.position;
     }
 
-    public enum Move
+    RaytraceHitResultType RayTraceLocation(Vector3 LocationToCheck)
     {
-        Up,
-        Down,
-        Left,
-        Right
-    }
+        RaytraceHitResultType result = RaytraceHitResultType.None;
 
-    public enum Rotate
-    {
-        ClockWise,
-        CounterClockWise
+        foreach (Transform blockTransform in transform)
+        {
+            //var hit = Physics2D.OverlapPoint(new Vector2(5, 0), LayerMask.GetMask("obstacle"));
+            var hit = Physics2D.OverlapPoint(blockTransform.localPosition + LocationToCheck, LayerMask.GetMask("obstacle"));
+            if (hit != null)
+            {
+                result = Settings.ConvertTag(hit.tag);
+                Debug.Log(hit.gameObject.tag);
+            }
+        }
+
+        return result;
     }
 }

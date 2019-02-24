@@ -115,4 +115,23 @@ public class Settings : MonoBehaviour {
         return (GameObject)Instantiate(Resources.Load<GameObject>(shapeFullName), shapeSpawnPosition, Quaternion.identity);
     }
 
+    public static RaytraceHitResultType ConvertTag(string tag)
+    {
+        if (tag == "GridWall")
+        {
+            return RaytraceHitResultType.GridWall;
+        }
+        else if (tag == "GridBottom")
+        {
+            return RaytraceHitResultType.GridBottom;
+        }
+        else if (tag == "Block")
+        {
+            return RaytraceHitResultType.Block;
+        }
+        else
+        {
+            return RaytraceHitResultType.None;
+        }
+    }
 }

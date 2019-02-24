@@ -20,7 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4912924210745416}
   - component: {fileID: 212985348717074974}
-  m_Layer: 0
+  - component: {fileID: 61802132732816614}
+  m_Layer: 9
   m_Name: mino_z (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +37,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4422417188603058}
   - component: {fileID: 212242938388258694}
-  m_Layer: 0
+  - component: {fileID: 61664758466721846}
+  m_Layer: 9
   m_Name: mino_z (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -52,7 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4629685526993824}
   - component: {fileID: 114085856719305042}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tile_Z
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,7 +70,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4165426349023846}
   - component: {fileID: 212565402847055266}
-  m_Layer: 0
+  - component: {fileID: 61201180453096156}
+  m_Layer: 9
   m_Name: mino_z (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +87,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4004618363053524}
   - component: {fileID: 212208308192554516}
-  m_Layer: 0
+  - component: {fileID: 61642705764536390}
+  m_Layer: 9
   m_Name: mino_z (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -160,6 +164,106 @@ Transform:
   m_Father: {fileID: 4629685526993824}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &61201180453096156
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1657304256575122}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!61 &61642705764536390
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1737083167361088}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!61 &61664758466721846
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1397974460221292}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!61 &61802132732816614
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1173968774931136}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!114 &114085856719305042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -171,7 +275,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebc94fd5e13314c949d642e531d35a43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skipFallForOneFrame: 1
   allowRotatation: 1
   limitRotatation: 1
 --- !u!212 &212208308192554516

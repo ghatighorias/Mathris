@@ -20,7 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4108917495575936}
   - component: {fileID: 212224348843122206}
-  m_Layer: 0
+  - component: {fileID: 61602202621645254}
+  m_Layer: 9
   m_Name: mino_j (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,8 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4006474609372866}
   - component: {fileID: 114983223950273778}
-  - component: {fileID: 60964987593950054}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tile_J
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +53,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4984555956186460}
   - component: {fileID: 212999253038788650}
-  m_Layer: 0
+  - component: {fileID: 61129586308829790}
+  m_Layer: 9
   m_Name: mino_j (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +70,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4813942918931954}
   - component: {fileID: 212468455441142492}
-  m_Layer: 0
+  - component: {fileID: 61948803237059732}
+  m_Layer: 9
   m_Name: mino_j (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,7 +87,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4429635741970750}
   - component: {fileID: 212893850639316876}
-  m_Layer: 0
+  - component: {fileID: 61938203632587138}
+  m_Layer: 9
   m_Name: mino_j (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,12 +164,12 @@ Transform:
   m_Father: {fileID: 4006474609372866}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &60964987593950054
-PolygonCollider2D:
+--- !u!61 &61129586308829790
+BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1188806022718940}
+  m_GameObject: {fileID: 1509260657713894}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -176,21 +179,91 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 1.5, y: 1.5}
-      - {x: -1.5, y: 1.5}
-      - {x: -1.5, y: 0.5}
-      - {x: 0.5, y: 0.5}
-      - {x: 0.5, y: -0.5}
-      - {x: 1.5, y: -0.5}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!61 &61602202621645254
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1043152665990484}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!61 &61938203632587138
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1699495797379856}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!61 &61948803237059732
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1550821993919248}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!114 &114983223950273778
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -202,7 +275,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebc94fd5e13314c949d642e531d35a43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skipFallForOneFrame: 1
   allowRotatation: 1
   limitRotatation: 0
 --- !u!212 &212224348843122206
