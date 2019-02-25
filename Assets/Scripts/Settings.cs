@@ -47,15 +47,11 @@ public class Settings : MonoBehaviour {
     {
         var gridHandler = FindObjectOfType<GridHandler>();
 
-        var completedRows = gridHandler.AddToGrid(ActiveShape);
-
+        gridHandler.AddToGrid(ActiveShape);
         Destroy(ActiveShape.gameObject);
 
-        foreach (var rowId in completedRows)
-        {
-            gridHandler.RemoveRow(rowId);
-            gridHandler.ShiftRowDown(rowId + 1, 1);
-        }
+        var completedRows = gridHandler.GetCompletedRows();
+        gridHandler.DeleteRows(completedRows);
 
         SpawnRandomShape();
     }

@@ -5,19 +5,20 @@ using UnityEngine;
 
 public class GridHandler : MonoBehaviour {
 
-    Bounds gridBound;
     public Vector2Int gridSize = new Vector2Int(10, 10);
-    public Dictionary<int, List<GameObject>> GridRowDictionary;
+    Dictionary<int, List<GameObject>> rowDictionary;
+    public LayerMask ObstacleLayer; 
+    Transform gridObstacles;
+
 
     private void Start()
     {
+        gridObstacles = transform.Find("Obstacles");
         SetupBound();
     }
 
     void SetupBound()
     {
-        gridBound = new Bounds(transform.position, new Vector3(gridSize.x, gridSize.y, 100));
-
         var gridBottom = transform.Find("GridBottom");
         if (gridBottom != null)
         {
@@ -39,58 +40,96 @@ public class GridHandler : MonoBehaviour {
             gridRight.transform.localScale = new Vector3(1, gridSize.y + 1, 1);
         }
 
-        GridRowDictionary = new Dictionary<int, List<GameObject>>();
-        for (int index = 1; index <= gridSize.y; index++)
+        // create the row keys
+        rowDictionary = new Dictionary<int, List<GameObject>>();
+        for (int index = 0; index < gridSize.y; index++)
         {
-            GridRowDictionary.Add(index, new List<GameObject>(gridSize.x));
+            rowDictionary.Add(index, new List<GameObject>());
         }
     }
 
-    public bool IsInBound(Vector3 position) => gridBound.Contains(position);
+    bool IsRowCompleted(int row) => rowDictionary[row].Count == gridSize.x;
 
-    bool IsRowCompleted(int row) => GridRowDictionary[row].Count == gridSize.x;
+    bool IsRowValid(int row) => rowDictionary.ContainsKey(row) ;
 
-    public void ShiftRowDown(int row, int shitfCount)
+    int GetBlockRowIndex(Transform block) => (int)block.position.y + (int)gridSize.y / 2;
+
+    void ShiftRowDown(int targetRow, int destinationRow)
     {
-        if (row != 0 && GridRowDictionary[row].Count > 0)
+        if (IsRowValid(targetRow) && IsRowValid(destinationRow))
         {
-            var rowBlocks = GridRowDictionary[row];
-            rowBlocks.ForEach((block) => { block.transform.position += shitfCount * Vector3.down; });
-            GridRowDictionary[row - 1] = rowBlocks;
-            GridRowDictionary[row].Clear();
+            // move the object in array
+            rowDictionary[destinationRow] = rowDictionary[targetRow];
+            rowDictionary[targetRow] = new List<GameObject>();
+            // move the object in viewport
+            rowDictionary[destinationRow].ForEach((block) => block.transform.position += Vector3.down * (targetRow - destinationRow));
         }
     }
 
-    public void RemoveRow(int row)
+    void DeleteRow(int row)
     {
-        // this should be tested to see if destroying will fuck up the index
-        GridRowDictionary[row].ForEach((block) => { Destroy(block); });
-
-        GridRowDictionary[row].Clear();
+        rowDictionary[row].ForEach((block) => { Destroy(block); });
+        rowDictionary[row].Clear();
     }
 
-    int GetBlockRowIndex(Transform block) => (int)block.position.y + (int)gridSize.y / 2 + 1;
+    /// <summary>
+    /// Deletes the rows. and shiftdown others affected by it
+    /// </summary>
+    /// <param name="rows">List of row indexes to be deleted</param>
+    public void DeleteRows(List<int> rows)
+    {
+        int shiftDownCounter = 0;
 
-    public List<int> AddToGrid(ShapeHandler Shape)
+        for (int rowIndex = 0; rowIndex < gridSize.y; rowIndex++)
+        {
+            if (rows.Contains(rowIndex))
+            {
+                DeleteRow(rowIndex);
+                shiftDownCounter++;
+            }
+            else if (shiftDownCounter > 0)
+            {
+                ShiftRowDown(rowIndex, rowIndex - shiftDownCounter);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Adds blocks of the shape to the gridHandler gameobject and sets
+    /// their layer to obstacle
+    /// </summary>
+    /// <param name="Shape">Shape to be deconstructed and added to grid</param>
+    public void AddToGrid(ShapeHandler Shape)
     {
         List<Transform> children = new List<Transform>();
-        var gridObstacles = transform.Find("Obstacles");
-        List<int> completedRows = new List<int>();
 
         foreach (Transform block in Shape.transform)
         {
             int row = GetBlockRowIndex(block);
-            GridRowDictionary[row].Add(block.gameObject);
+            Debug.Log(row);
+            rowDictionary[row].Add(block.gameObject);
             block.gameObject.layer = LayerMask.NameToLayer("obstacle");
             children.Add(block);
-
-            if (IsRowCompleted(row))
-            {
-                completedRows.Add(row);
-            }
         }
 
         children.ForEach((child) => { child.parent = gridObstacles.transform; });
+    }
+
+    /// <summary>
+    /// Get the list of row indexes that are completed
+    /// </summary>
+    /// <returns>The completed row indexes</returns>
+    public List<int> GetCompletedRows()
+    {
+        List<int> completedRows = new List<int>();
+
+        foreach (var rowPair in rowDictionary)
+        {
+            if (IsRowCompleted(rowPair.Key))
+            {
+                completedRows.Add(rowPair.Key);
+            }
+        }
 
         return completedRows;
     }
@@ -99,6 +138,15 @@ public class GridHandler : MonoBehaviour {
     {
         SetupBound();
         Gizmos.color = Color.yellow;
-        Gizmos.DrawCube(gridBound.center, gridBound.size);
+    }
+
+    void OnGUI()
+    {
+        var output = string.Empty;
+        for (int i = rowDictionary.Count - 1; i >= 0; i--)
+        {
+            output += string.Format("\nrow-{0} : {1}", i, rowDictionary[i].Count);
+        }
+        GUI.Label(new Rect(0, 0, 100, 300), output);
     }
 }
