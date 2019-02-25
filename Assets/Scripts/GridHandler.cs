@@ -6,8 +6,9 @@ using UnityEngine;
 public class GridHandler : MonoBehaviour {
 
     public Vector2Int gridSize = new Vector2Int(10, 10);
+    public Vector2Int blockSize = new Vector2Int(1, 1);
     Dictionary<int, List<GameObject>> rowDictionary;
-    public LayerMask ObstacleLayer; 
+
     Transform gridObstacles;
 
 
@@ -22,21 +23,21 @@ public class GridHandler : MonoBehaviour {
         var gridBottom = transform.Find("GridBottom");
         if (gridBottom != null)
         {
-            gridBottom.transform.position = new Vector3(0, -(float)(gridSize.y) / 2 - 1, 0);
+            gridBottom.transform.position = new Vector3(0, -(float)(gridSize.y) / 2 - (float)blockSize.y / 2, 0);
             gridBottom.transform.localScale = new Vector3(gridSize.x, 1, 1);
         }
 
         var gridLeft = transform.Find("GridLeft");
         if (gridLeft != null)
         {
-            gridLeft.transform.position = new Vector3(-(float)(gridSize.x) / 2 - 0.5F, 0, 0);
+            gridLeft.transform.position = new Vector3(-(float)(gridSize.x) / 2 - (float)blockSize.y / 2, 0, 0);
             gridLeft.transform.localScale = new Vector3(1, gridSize.y + 1, 1);
         }
 
         var gridRight = transform.Find("GridRight");
         if (gridRight != null)
         {
-            gridRight.transform.position = new Vector3(+(float)(gridSize.x) / 2 + 0.5F, 0, 0);
+            gridRight.transform.position = new Vector3(+(float)(gridSize.x) / 2 + (float)blockSize.y / 2, 0, 0);
             gridRight.transform.localScale = new Vector3(1, gridSize.y + 1, 1);
         }
 
@@ -52,7 +53,7 @@ public class GridHandler : MonoBehaviour {
 
     bool IsRowValid(int row) => rowDictionary.ContainsKey(row) ;
 
-    int GetBlockRowIndex(Transform block) => (int)block.position.y + (int)gridSize.y / 2;
+    int GetBlockRowIndex(Transform block) => (int)Mathf.Floor(block.position.y + (float)gridSize.y / 2);
 
     void ShiftRowDown(int targetRow, int destinationRow)
     {
@@ -138,6 +139,18 @@ public class GridHandler : MonoBehaviour {
     {
         SetupBound();
         Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(new Vector3(-5, -5, 0), new Vector3(5, -5, 0));
+        Gizmos.DrawLine(new Vector3(-5, -4, 0), new Vector3(5, -4, 0));
+        Gizmos.DrawLine(new Vector3(-5, -3, 0), new Vector3(5, -3, 0));
+        Gizmos.DrawLine(new Vector3(-5, -2, 0), new Vector3(5, -2, 0));
+        Gizmos.DrawLine(new Vector3(-5, -1, 0), new Vector3(5, -1, 0));
+        Gizmos.DrawLine(new Vector3(-5, -0, 0), new Vector3(5, 0, 0));
+        Gizmos.DrawLine(new Vector3(-5, 1, 0), new Vector3(5, 1, 0));
+        Gizmos.DrawLine(new Vector3(-5, 2, 0), new Vector3(5, 2, 0));
+        Gizmos.DrawLine(new Vector3(-5, 3, 0), new Vector3(5, 3, 0));
+        Gizmos.DrawLine(new Vector3(-5, 4, 0), new Vector3(5, 4, 0));
+        Gizmos.DrawLine(new Vector3(-5, 5, 0), new Vector3(5, 5, 0));
+        //    Gizmos.DrawCube(transform.position, new Vector3(gridSize.x, gridSize.y, 0));
     }
 
     void OnGUI()

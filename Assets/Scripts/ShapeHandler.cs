@@ -16,6 +16,7 @@ public class ShapeHandler : MonoBehaviour {
     public void MoveShapeIfValid(Move move)
     {
         var nextShapeLocation = GetNextShapeLocation(move);
+
         var traceResult = RayTraceLocation(nextShapeLocation, transform.rotation);
 
         if ( traceResult == RaytraceHitResultType.None)
@@ -78,7 +79,6 @@ public class ShapeHandler : MonoBehaviour {
             if (hit != null)
             {
                 hitResultType = Settings.ConvertTag(hit.tag);
-                Debug.Log(hit.gameObject.tag);
             }
         }
 
