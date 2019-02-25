@@ -5,29 +5,17 @@ using UnityEngine;
 
 public class ShapeHandler : MonoBehaviour {
 
-    GridHandler gridHandler;
-    //Settings settings;
-
+    [HideInInspector]
     public Action ShapeLanded;
-    int obstacleLayer;
+
+    public LayerMask obstacleLayer;
     public bool allowRotatation = true;
     public bool limitRotatation = false;
     public Rotate ReverseRotate => transform.rotation.eulerAngles.z > 0 ? Rotate.CounterClockWise : Rotate.ClockWise;
 
-    void Awake()
-    {
-        obstacleLayer= LayerMask.GetMask("obstacle");
-    }
-
-    // Use this for initialization
-    void Start() {
-        gridHandler = FindObjectOfType<GridHandler>();
-        //settings = FindObjectOfType<Settings>();
-    }
-
     public void MoveShapeIfValid(Move move)
     {
-        var nextShapeLocation = GetNextShapeLocation(move, false);
+        var nextShapeLocation = GetNextShapeLocation(move);
         var traceResult = RayTraceLocation(nextShapeLocation, transform.rotation);
 
         if ( traceResult == RaytraceHitResultType.None)
@@ -49,7 +37,7 @@ public class ShapeHandler : MonoBehaviour {
         }
     }
 
-    Vector3 GetNextShapeLocation(Move move, bool reverse)
+    Vector3 GetNextShapeLocation(Move move)
     {
         var positionOffset = Vector3.zero;
 
@@ -68,9 +56,8 @@ public class ShapeHandler : MonoBehaviour {
                 positionOffset += Vector3.right;
                 break;
         }
-        //transform.position += reverse ? -positionOffset : positionOffset;
         
-        return (transform.position) + (reverse ? -positionOffset : positionOffset);
+        return transform.position + positionOffset;
     }
 
     Quaternion GetNextShapeRotation(Rotate rotate)
@@ -82,19 +69,19 @@ public class ShapeHandler : MonoBehaviour {
 
     RaytraceHitResultType RayTraceLocation(Vector3 LocationToCheck, Quaternion nextShapeRotation)
     {
-        RaytraceHitResultType result = RaytraceHitResultType.None;
+        RaytraceHitResultType hitResultType = RaytraceHitResultType.None;
 
         foreach (Transform blockTransform in transform)
         {
             var blockNextLocation = nextShapeRotation * blockTransform.localPosition + LocationToCheck;
-            var hit = Physics2D.OverlapPoint(blockNextLocation, LayerMask.GetMask("obstacle"));
+            var hit = Physics2D.OverlapPoint(blockNextLocation, obstacleLayer);
             if (hit != null)
             {
-                result = Settings.ConvertTag(hit.tag);
+                hitResultType = Settings.ConvertTag(hit.tag);
                 Debug.Log(hit.gameObject.tag);
             }
         }
 
-        return result;
+        return hitResultType;
     }
 }
