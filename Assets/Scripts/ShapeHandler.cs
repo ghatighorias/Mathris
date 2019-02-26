@@ -100,7 +100,7 @@ public class ShapeHandler : MonoBehaviour {
         }
     }
 
-    public static GameObject InstantiateRandomShape(Vector3 shapeSpawnPosition)
+    public static ShapeHandler InstantiateRandomShape()
     {
         var randomShapeNumber = UnityEngine.Random.Range(1, 7);
         var shapePrefix = "Tile";
@@ -133,6 +133,6 @@ public class ShapeHandler : MonoBehaviour {
 
         var shapeFullName = string.Format("Prefabs/{0}_{1}", shapePrefix, shapePostfix);
 
-        return (GameObject)Instantiate(Resources.Load<GameObject>(shapeFullName), shapeSpawnPosition, Quaternion.identity);
+        return Instantiate(Resources.Load<GameObject>(shapeFullName), Vector3.zero, Quaternion.identity).GetComponent<ShapeHandler>();
     }
 }

@@ -7,6 +7,7 @@ public class Settings : MonoBehaviour {
     public float fallDelay = 1F;
     public bool allowAutomaticDrop = true;
     public Vector3 shapeSpawnPosition = Vector3.zero;
+    public Vector3 shapeHoldPosition = Vector3.zero;
     bool skipFallForOneFrame;
     ShapeHandler ActiveShape;
     ShapeHandler NextShape;
@@ -26,7 +27,8 @@ public class Settings : MonoBehaviour {
         currentLevel = 0;
         currentScore = 0;
 
-        SpawnRandomShape();
+         
+        SpawnRandomShape(true);
     }
 
     void Update()
@@ -50,10 +52,14 @@ public class Settings : MonoBehaviour {
         }
     }
 
-    void SpawnRandomShape()
+    void SpawnRandomShape(bool firstBlock)
     {
-        ActiveShape = ShapeHandler.InstantiateRandomShape(shapeSpawnPosition).GetComponent<ShapeHandler>();
+        ActiveShape = firstBlock ? ShapeHandler.InstantiateRandomShape() : NextShape;
+        ActiveShape.gameObject.transform.position = shapeSpawnPosition;
         ActiveShape.ShapeLanded = OnActiveShapeLanded;
+
+        NextShape = ShapeHandler.InstantiateRandomShape();
+        NextShape.gameObject.transform.position = shapeHoldPosition;
     }
 
     void OnActiveShapeLanded()
@@ -67,12 +73,12 @@ public class Settings : MonoBehaviour {
         ProcessLineRemoval(completedRows.Count);
         gridHandler.DeleteRows(completedRows);
 
-        SpawnRandomShape();
+        SpawnRandomShape(false);
     }
 
     void ProcessLineRemoval(int clearedLines)
     {
-        if (clearedLines == 0)
+        if (clearedLines <= 0)
         {
             comboLevel = 0;
         }

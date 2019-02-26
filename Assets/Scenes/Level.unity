@@ -164,7 +164,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 518985303}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -6, z: 0}
+  m_LocalPosition: {x: 0, y: -5.5, z: 0}
   m_LocalScale: {x: 10, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1880399623}
@@ -450,6 +450,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridSize: {x: 10, y: 10}
+  blockSize: {x: 1, y: 1}
 --- !u!1 &2007972267
 GameObject:
   m_ObjectHideFlags: 0
@@ -479,7 +480,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fallDelay: 1
   allowAutomaticDrop: 0
-  shapeSpawnPosition: {x: 0.5, y: 5, z: 0}
+  shapeSpawnPosition: {x: 0.5, y: 4.5, z: 0}
+  shapeHoldPosition: {x: 0, y: 0, z: 0}
+  comboLevel: 0
+  currentLevel: 0
+  currentScore: 0
 --- !u!4 &2007972269
 Transform:
   m_ObjectHideFlags: 0
