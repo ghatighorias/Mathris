@@ -78,10 +78,61 @@ public class ShapeHandler : MonoBehaviour {
             var hit = Physics2D.OverlapPoint(blockNextLocation, obstacleLayer);
             if (hit != null)
             {
-                hitResultType = Settings.ConvertTag(hit.tag);
+                hitResultType = TagToHitResultType(hit.tag);
             }
         }
 
         return hitResultType;
+    }
+
+    public static RaytraceHitResultType TagToHitResultType(string tag)
+    {
+        switch (tag)
+        {
+            case "GridWall":
+                return RaytraceHitResultType.GridWall;
+            case "GridBottom":
+                return RaytraceHitResultType.GridBottom;
+            case "Block":
+                return RaytraceHitResultType.Block;
+            default:
+                return RaytraceHitResultType.None;
+        }
+    }
+
+    public static GameObject InstantiateRandomShape(Vector3 shapeSpawnPosition)
+    {
+        var randomShapeNumber = UnityEngine.Random.Range(1, 7);
+        var shapePrefix = "Tile";
+        var shapePostfix = string.Empty;
+
+        switch (randomShapeNumber)
+        {
+            case 1:
+                shapePostfix = "J";
+                break;
+            case 2:
+                shapePostfix = "L";
+                break;
+            case 3:
+                shapePostfix = "Long";
+                break;
+            case 4:
+                shapePostfix = "S";
+                break;
+            case 5:
+                shapePostfix = "Square";
+                break;
+            case 6:
+                shapePostfix = "T";
+                break;
+            case 7:
+                shapePostfix = "Z";
+                break;
+        }
+
+        var shapeFullName = string.Format("Prefabs/{0}_{1}", shapePrefix, shapePostfix);
+
+        return (GameObject)Instantiate(Resources.Load<GameObject>(shapeFullName), shapeSpawnPosition, Quaternion.identity);
     }
 }
