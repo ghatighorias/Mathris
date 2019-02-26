@@ -1,14 +1,14 @@
 ﻿
-public class LineScoreHandler
+public static class LineScoreHandler
 {
     const int comboBaseScore = 50;
 
-    ScoreResult GerScore(int clearedLines, int comboLevel, int currentLevel)
+    public static ScoreResult GerScore(int clearedLines, int comboLevel, int currentLevel)
     {
         return GetLineClear(clearedLines, currentLevel) + GetComboScore(comboLevel, currentLevel);
     }
 
-    ScoreResult GetLineClear(int clearedLines, int currentLevel)
+    static ScoreResult GetLineClear(int clearedLines, int currentLevel)
     {
         switch (clearedLines)
         { 
@@ -20,7 +20,7 @@ public class LineScoreHandler
         }
     }
 
-    ScoreResult GetComboScore(int comboLevel, int currentLevel)
+    static ScoreResult GetComboScore(int comboLevel, int currentLevel)
     {
         return new ScoreResult(comboBaseScore * comboLevel * currentLevel, currentLevel / 2);
     }
@@ -28,8 +28,8 @@ public class LineScoreHandler
 
 public struct ScoreResult
 {
-    readonly int score;
-    readonly int lineAward;
+    public readonly int score;
+    public readonly int lineAward;
 
     public ScoreResult(int score, int lineAward)
     {

@@ -11,8 +11,16 @@ public class Settings : MonoBehaviour {
     ShapeHandler ActiveShape = null;
     float fallTimer = 0F;
 
+    int comboLevel;
+    int currentLevel;
+    int currentScore;
+
     void Start()
     {
+        comboLevel = 0;
+        currentLevel = 0;
+        currentScore = 0;
+
         SpawnRandomShape();
     }
 
@@ -51,9 +59,26 @@ public class Settings : MonoBehaviour {
         Destroy(ActiveShape.gameObject);
 
         var completedRows = gridHandler.GetCompletedRows();
+        ProcessLineRemoval(completedRows.Count);
         gridHandler.DeleteRows(completedRows);
 
         SpawnRandomShape();
+    }
+
+    void ProcessLineRemoval(int clearedLines)
+    {
+        if (clearedLines == 0)
+        {
+            comboLevel = 0;
+        }
+        else
+        {
+            var award = LineScoreHandler.GerScore(clearedLines, comboLevel, currentLevel);
+            clearedLines += award.lineAward;
+            currentScore += award.score;
+            comboLevel++;
+        }
+
     }
 
     void CheckUserInput()
