@@ -12,7 +12,9 @@ public class Settings : MonoBehaviour {
     ShapeHandler ActiveShape;
     ShapeHandler NextShape;
 
-    float fallTimer = 0F;
+    GridHandler gridHandler;
+
+    float fallTimer;
 
     [HideInInspector]
     public int comboLevel;
@@ -21,8 +23,26 @@ public class Settings : MonoBehaviour {
     [HideInInspector]
     public int currentScore;
 
+    bool softDropActive;
+    float softDropDelay;
+    float softDropTimer;
+
+    bool hardDropActive;
+    float hardDropDelay;
+    float hardDropTimer;
+
     void Start()
     {
+        gridHandler = FindObjectOfType<GridHandler>();
+
+        fallTimer = 0F;
+
+        softDropTimer = 0F;
+        softDropDelay = 0.2F;
+
+        hardDropTimer = 0F;
+        hardDropDelay = 0.1F;
+
         comboLevel = 0;
         currentLevel = 0;
         currentScore = 0;
@@ -36,6 +56,15 @@ public class Settings : MonoBehaviour {
         skipFallForOneFrame = false;
 
         CheckUserInput();
+
+        if (hardDropActive)
+        {
+            HandleDropDrop();
+        }
+        else if (softDropActive)
+        {
+            HandleSoftDrop();
+        }
 
         if (allowAutomaticDrop)
         {
@@ -52,6 +81,28 @@ public class Settings : MonoBehaviour {
         }
     }
 
+    void HandleSoftDrop()
+    {
+        softDropTimer += Time.deltaTime;
+
+        if (softDropTimer >= softDropDelay)
+        {
+            softDropTimer = 0F;
+            ActiveShape.MoveShapeIfValid(Move.Down);
+        }
+    }
+
+    void HandleDropDrop()
+    {
+            hardDropTimer += Time.deltaTime;
+
+            if (hardDropTimer >= hardDropDelay)
+            {
+                hardDropTimer = 0F;
+                ActiveShape.MoveShapeIfValid(Move.Down);
+            }
+    }
+
     void SpawnRandomShape(bool firstBlock)
     {
         ActiveShape = firstBlock ? ShapeHandler.InstantiateRandomShape() : NextShape;
@@ -64,7 +115,7 @@ public class Settings : MonoBehaviour {
 
     void OnActiveShapeLanded()
     {
-        var gridHandler = FindObjectOfType<GridHandler>();
+        hardDropActive = false;
 
         gridHandler.AddToGrid(ActiveShape);
         Destroy(ActiveShape.gameObject);
@@ -96,10 +147,19 @@ public class Settings : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            ActiveShape.MoveShapeIfValid(Move.Down);
-            skipFallForOneFrame = true;
+            //skipFallForOneFrame = true;
+            softDropActive = true;
         }
-        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        else if (Input.GetKeyUp(KeyCode.DownArrow))
+        {
+            softDropActive = false;
+        }
+        else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            hardDropActive = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             if (ActiveShape.allowRotatation)
             {
@@ -122,4 +182,5 @@ public class Settings : MonoBehaviour {
             ActiveShape.MoveShapeIfValid(Move.Right);
         }
     }
+
 }
