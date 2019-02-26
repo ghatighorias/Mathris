@@ -1,4 +1,13 @@
-﻿public enum Move
+﻿public enum ActionType
+{
+    None,
+    Rotate,
+    MoveLeft,
+    MoveRight,
+    Down
+}
+
+public enum Move
 {
     Up,
     Down,

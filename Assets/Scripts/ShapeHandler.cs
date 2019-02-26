@@ -13,6 +13,27 @@ public class ShapeHandler : MonoBehaviour {
     public bool limitRotatation = false;
     public Rotate ReverseRotate => transform.rotation.eulerAngles.z > 0 ? Rotate.CounterClockWise : Rotate.ClockWise;
 
+    public void ExecuteAction(ActionType actionType)
+    {
+        switch (actionType)
+        {
+            case ActionType.Rotate: 
+                RotateShapeIfValid();
+                break;
+            case ActionType.MoveLeft:
+                MoveShapeIfValid(Move.Left);
+                break;
+            case ActionType.MoveRight:
+                MoveShapeIfValid(Move.Right);
+                break;
+            case ActionType.Down:
+                MoveShapeIfValid(Move.Down);
+                break;
+            default:
+                break;
+        }
+    }
+
     public void MoveShapeIfValid(Move move)
     {
         var nextShapeLocation = GetNextShapeLocation(move);
@@ -29,12 +50,17 @@ public class ShapeHandler : MonoBehaviour {
         }
     }
 
-    public void RotateShapeIfValid(Rotate rotate)
+    public void RotateShapeIfValid()
     {
-        var nextShapeRotation = GetNextShapeRotation(rotate);
-        if (RayTraceLocation(transform.position, nextShapeRotation) == RaytraceHitResultType.None)
+        if (allowRotatation)
         {
-            transform.rotation = nextShapeRotation;
+            var rotationDirection = limitRotatation ? ReverseRotate : Rotate.ClockWise;
+
+            var nextShapeRotation = GetNextShapeRotation(rotationDirection);
+            if (RayTraceLocation(transform.position, nextShapeRotation) == RaytraceHitResultType.None)
+            {
+                transform.rotation = nextShapeRotation;
+            }
         }
     }
 

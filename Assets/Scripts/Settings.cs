@@ -60,7 +60,7 @@ public class Settings : MonoBehaviour {
     {
         skipFallForOneFrame = false;
 
-        CheckUserInput();
+        MapInputToAction();
 
         if (hardDropActive)
         {
@@ -148,43 +148,26 @@ public class Settings : MonoBehaviour {
 
     }
 
-    void CheckUserInput()
+    void MapInputToAction()
     {
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            //skipFallForOneFrame = true;
-            softDropActive = true;
-        }
-        else if (Input.GetKeyUp(KeyCode.DownArrow))
-        {
-            softDropActive = false;
-        }
-        else if (Input.GetKeyDown(KeyCode.Space))
-        {
-            hardDropActive = true;
-        }
+        var userAction = InputHandler.GetUserAction();
 
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            if (ActiveShape.allowRotatation)
-            {
-                if (ActiveShape.limitRotatation)
-                {
-                    ActiveShape.RotateShapeIfValid(ActiveShape.ReverseRotate);
-                }
-                else
-                {
-                    ActiveShape.RotateShapeIfValid(Rotate.ClockWise);
-                }
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        softDropActive = userAction.softDrop;
+        hardDropActive = userAction.hardDrop;
+
+        if (userAction.moveLeft)
         {
             ActiveShape.MoveShapeIfValid(Move.Left);
         }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
+
+        if (userAction.moveRight)
         {
             ActiveShape.MoveShapeIfValid(Move.Right);
+        }
+
+        if (userAction.rotate)
+        {
+            ActiveShape.RotateShapeIfValid();
         }
     }
 
