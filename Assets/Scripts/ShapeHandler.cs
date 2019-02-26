@@ -135,4 +135,31 @@ public class ShapeHandler : MonoBehaviour {
 
         return Instantiate(Resources.Load<GameObject>(shapeFullName), Vector3.zero, Quaternion.identity).GetComponent<ShapeHandler>();
     }
+
+    float GetShapeHighestLandingPoint(float gridBottomY)
+    {
+        Transform lowestBlock = null;
+        Transform highestHitLocation = null;
+        bool firstCheck = true;
+
+        foreach (Transform blockTransform in transform)
+        {
+            if (firstCheck || blockTransform.position.y <= lowestBlock.position.y)
+            {
+                firstCheck = false;
+
+                lowestBlock = blockTransform;
+
+                var endRayLocation = new Vector2(lowestBlock.position.x, gridBottomY);
+                var hit = Physics2D.Linecast(lowestBlock.position, endRayLocation);
+
+                if (hit.transform != null)
+                {
+                    highestHitLocation = hit.transform;
+                }
+            }
+        }
+
+        return (lowestBlock.position - highestHitLocation.position + Vector3.up).y;
+    }
 }

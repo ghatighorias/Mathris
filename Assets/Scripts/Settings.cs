@@ -9,10 +9,15 @@ public class Settings : MonoBehaviour {
     public Vector3 shapeSpawnPosition = Vector3.zero;
     public Vector3 shapeHoldPosition = Vector3.zero;
     bool skipFallForOneFrame;
+
     ShapeHandler ActiveShape;
     ShapeHandler NextShape;
 
+    bool showGuideShape = true;
+    ShapeHandler GuideShape;
+
     GridHandler gridHandler;
+
 
     float fallTimer;
 
@@ -182,5 +187,6 @@ public class Settings : MonoBehaviour {
             ActiveShape.MoveShapeIfValid(Move.Right);
         }
     }
+
 
 }
