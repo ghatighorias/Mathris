@@ -139,18 +139,18 @@ public class GridHandler : MonoBehaviour {
     {
         SetupBound();
         Gizmos.color = Color.yellow;
-        Gizmos.DrawLine(new Vector3(-5, -5, 0), new Vector3(5, -5, 0));
-        Gizmos.DrawLine(new Vector3(-5, -4, 0), new Vector3(5, -4, 0));
-        Gizmos.DrawLine(new Vector3(-5, -3, 0), new Vector3(5, -3, 0));
-        Gizmos.DrawLine(new Vector3(-5, -2, 0), new Vector3(5, -2, 0));
-        Gizmos.DrawLine(new Vector3(-5, -1, 0), new Vector3(5, -1, 0));
-        Gizmos.DrawLine(new Vector3(-5, -0, 0), new Vector3(5, 0, 0));
-        Gizmos.DrawLine(new Vector3(-5, 1, 0), new Vector3(5, 1, 0));
-        Gizmos.DrawLine(new Vector3(-5, 2, 0), new Vector3(5, 2, 0));
-        Gizmos.DrawLine(new Vector3(-5, 3, 0), new Vector3(5, 3, 0));
-        Gizmos.DrawLine(new Vector3(-5, 4, 0), new Vector3(5, 4, 0));
-        Gizmos.DrawLine(new Vector3(-5, 5, 0), new Vector3(5, 5, 0));
-        //    Gizmos.DrawCube(transform.position, new Vector3(gridSize.x, gridSize.y, 0));
+
+        for (int row = 0; row <= gridSize.x; row++)
+        {
+            for (int col = 0; col <= gridSize.x; col++)
+            {
+                Gizmos.DrawLine(new Vector3(row - gridSize.x / 2, col - gridSize.y / 2, 0), 
+                                new Vector3(gridSize.x / 2 - row, col - gridSize.y / 2, 0));
+
+                Gizmos.DrawLine(new Vector3(row - gridSize.x / 2, col - gridSize.y / 2, 0),
+                                new Vector3(row - gridSize.x / 2, gridSize.y / 2 - col, 0));
+            }
+        }
     }
 
     void OnGUI()
