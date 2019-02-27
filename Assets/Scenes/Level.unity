@@ -139,7 +139,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1880399623}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &518985303
 GameObject:
@@ -168,7 +168,7 @@ Transform:
   m_LocalScale: {x: 10, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1880399623}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &518985305
 BoxCollider2D:
@@ -247,7 +247,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 7.2679367
+  orthographic size: 10.583867
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -271,7 +271,7 @@ Transform:
   m_GameObject: {fileID: 796086256}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.73, y: 0.56, z: -10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5875, y: 1.4124997, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -304,7 +304,7 @@ Transform:
   m_LocalScale: {x: 1, y: 21, z: 1}
   m_Children: []
   m_Father: {fileID: 1880399623}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1102397916
 BoxCollider2D:
@@ -378,7 +378,7 @@ Transform:
   m_LocalScale: {x: 1, y: 21, z: 1}
   m_Children: []
   m_Father: {fileID: 1880399623}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1161538976
 BoxCollider2D:
@@ -431,10 +431,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 518985304}
   - {fileID: 1161538975}
   - {fileID: 1102397915}
   - {fileID: 193493740}
+  - {fileID: 518985304}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -481,7 +481,7 @@ MonoBehaviour:
   fallDelay: 1
   allowAutomaticDrop: 0
   shapeSpawnPosition: {x: 0.5, y: 4.5, z: 0}
-  shapeHoldPosition: {x: -5, y: -5, z: 0}
+  shapeHoldPosition: {x: -8, y: 10, z: 0}
   comboLevel: 0
   currentLevel: 0
   currentScore: 0
