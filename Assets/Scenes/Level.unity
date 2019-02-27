@@ -164,7 +164,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 518985303}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -5.5, z: 0}
+  m_LocalPosition: {x: 0, y: -10.5, z: 0}
   m_LocalScale: {x: 10, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1880399623}
@@ -247,7 +247,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 7.472623
+  orthographic size: 7.2679367
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -270,7 +270,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 796086256}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: -10}
+  m_LocalPosition: {x: -0.73, y: 0.56, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -301,7 +301,7 @@ Transform:
   m_GameObject: {fileID: 1102397914}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 5.5, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 11, z: 1}
+  m_LocalScale: {x: 1, y: 21, z: 1}
   m_Children: []
   m_Father: {fileID: 1880399623}
   m_RootOrder: 2
@@ -375,7 +375,7 @@ Transform:
   m_GameObject: {fileID: 1161538974}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.5, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 11, z: 1}
+  m_LocalScale: {x: 1, y: 21, z: 1}
   m_Children: []
   m_Father: {fileID: 1880399623}
   m_RootOrder: 1
@@ -449,7 +449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 567181d61038a4b1eafc9ed96bf6b530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: {x: 10, y: 10}
+  gridSize: {x: 10, y: 20}
   blockSize: {x: 1, y: 1}
 --- !u!1 &2007972267
 GameObject:
@@ -481,7 +481,7 @@ MonoBehaviour:
   fallDelay: 1
   allowAutomaticDrop: 0
   shapeSpawnPosition: {x: 0.5, y: 4.5, z: 0}
-  shapeHoldPosition: {x: 0, y: 0, z: 0}
+  shapeHoldPosition: {x: -5, y: -5, z: 0}
   comboLevel: 0
   currentLevel: 0
   currentScore: 0

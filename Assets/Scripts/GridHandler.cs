@@ -140,16 +140,17 @@ public class GridHandler : MonoBehaviour {
         SetupBound();
         Gizmos.color = Color.yellow;
 
-        for (int row = 0; row <= gridSize.x; row++)
+        // draw the grid
+        for (int row = 0; row <= gridSize.y; row++)
         {
-            for (int col = 0; col <= gridSize.x; col++)
-            {
-                Gizmos.DrawLine(new Vector3(row - gridSize.x / 2, col - gridSize.y / 2, 0), 
-                                new Vector3(gridSize.x / 2 - row, col - gridSize.y / 2, 0));
+            Gizmos.DrawLine(new Vector3(-gridSize.x / 2,  row-gridSize.y / 2, 0),
+                new Vector3(gridSize.x / 2,  row-gridSize.y / 2, 0));
+        }
 
-                Gizmos.DrawLine(new Vector3(row - gridSize.x / 2, col - gridSize.y / 2, 0),
-                                new Vector3(row - gridSize.x / 2, gridSize.y / 2 - col, 0));
-            }
+        for (int col = 0; col <= gridSize.x; col++)
+        {
+            Gizmos.DrawLine(new Vector3(col-gridSize.x / 2, -gridSize.y / 2, 0),
+                            new Vector3(col-gridSize.x / 2, gridSize.y / 2, 0));
         }
     }
 
@@ -162,4 +163,5 @@ public class GridHandler : MonoBehaviour {
         }
         GUI.Label(new Rect(0, 0, 100, 300), output);
     }
+
 }
