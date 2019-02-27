@@ -161,7 +161,7 @@ public class GridHandler : MonoBehaviour {
         {
             output += string.Format("\nrow-{0} : {1}", i, rowDictionary[i].Count);
         }
-        GUI.Label(new Rect(0, 0, 100, 300), output);
+        GUI.Label(new Rect(0, 0, 100, 350), output);
     }
 
 }

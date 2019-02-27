@@ -1,19 +1,39 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 
-
-public static class InputHandler
+public class InputHandler : MonoBehaviour
 {
-    public static InputActionMapper GetUserAction()
+    [HideInInspector]
+    public InputActionMapper ActionMapper = new InputActionMapper();
+
+    void Update()
     {
-        return new InputActionMapper()
+        GetUserAction();
+    }
+
+    public void GetUserAction()
+    {
+        if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            softDrop = false,//Input.GetKeyDown(KeyCode.DownArrow) | Input.GetKeyUp(KeyCode.DownArrow),
-            hardDrop = Input.GetKeyDown(KeyCode.Space),
-            rotate = Input.GetKeyDown(KeyCode.UpArrow),
-            moveLeft = Input.GetKeyDown(KeyCode.LeftArrow),
-            moveRight = Input.GetKeyDown(KeyCode.RightArrow)
-        };
+            ActionMapper.softDrop = true;
+        }
+        else if (Input.GetKeyUp(KeyCode.DownArrow))
+        {
+            ActionMapper.softDrop = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ActionMapper.hardDrop = true;
+        }
+
+        ActionMapper.rotate = Input.GetKeyDown(KeyCode.UpArrow);
+        ActionMapper.moveLeft = Input.GetKeyDown(KeyCode.LeftArrow);
+        ActionMapper.moveRight = Input.GetKeyDown(KeyCode.RightArrow);
+    }
+
+    public void ResetHardDrop()
+    {
+        ActionMapper.hardDrop = false;
     }
 }
 

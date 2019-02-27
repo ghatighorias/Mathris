@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static ShapeHandler;
 
+[RequireComponent(typeof(InputHandler))]
 public class Settings : MonoBehaviour {
     public float fallDelay = 1F;
     public bool allowAutomaticDrop = true;
@@ -17,7 +18,7 @@ public class Settings : MonoBehaviour {
     ShapeHandler GuideShape;
 
     GridHandler gridHandler;
-
+    InputHandler inputHandler;
 
     float fallTimer;
 
@@ -28,17 +29,16 @@ public class Settings : MonoBehaviour {
     [HideInInspector]
     public int currentScore;
 
-    bool softDropActive;
     float softDropDelay;
     float softDropTimer;
 
-    bool hardDropActive;
     float hardDropDelay;
     float hardDropTimer;
 
     void Start()
     {
         gridHandler = FindObjectOfType<GridHandler>();
+        inputHandler = GetComponent<InputHandler>();
 
         fallTimer = 0F;
 
@@ -61,15 +61,6 @@ public class Settings : MonoBehaviour {
         skipFallForOneFrame = false;
 
         MapInputToAction();
-
-        if (hardDropActive)
-        {
-            HandleDropDrop();
-        }
-        else if (softDropActive)
-        {
-            HandleSoftDrop();
-        }
 
         if (allowAutomaticDrop)
         {
@@ -120,7 +111,7 @@ public class Settings : MonoBehaviour {
 
     void OnActiveShapeLanded()
     {
-        hardDropActive = false;
+        inputHandler.ResetHardDrop();
 
         gridHandler.AddToGrid(ActiveShape);
         Destroy(ActiveShape.gameObject);
@@ -150,10 +141,16 @@ public class Settings : MonoBehaviour {
 
     void MapInputToAction()
     {
-        var userAction = InputHandler.GetUserAction();
+        var userAction = inputHandler.ActionMapper;
 
-        softDropActive = userAction.softDrop;
-        hardDropActive = userAction.hardDrop;
+        if (userAction.hardDrop)
+        {
+            HandleDropDrop();
+        }
+        else if (userAction.softDrop)
+        {
+            HandleSoftDrop();
+        }
 
         if (userAction.moveLeft)
         {
