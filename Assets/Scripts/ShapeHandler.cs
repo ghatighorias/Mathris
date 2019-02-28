@@ -94,7 +94,7 @@ public class ShapeHandler : MonoBehaviour {
         return transform.rotation * Quaternion.Euler(0, 0, zAxisRotationDegree);
     }
 
-    RaytraceHitResultType RayTraceLocation(Vector3 LocationToCheck, Quaternion nextShapeRotation)
+    public RaytraceHitResultType RayTraceLocation(Vector3 LocationToCheck, Quaternion nextShapeRotation)
     {
         RaytraceHitResultType hitResultType = RaytraceHitResultType.None;
 
@@ -190,5 +190,18 @@ public class ShapeHandler : MonoBehaviour {
         }
 
         return (lowestBlock.position - highestHitLocation.position + Vector3.up).y;
+    }
+
+    public bool OverLapsAnotherShape()
+    {
+        foreach (Transform block in transform)
+        {
+            if (RaytraceHitResultType.Block ==
+            RayTraceLocation(block.position, block.rotation))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

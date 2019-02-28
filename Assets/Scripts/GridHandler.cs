@@ -100,19 +100,22 @@ public class GridHandler : MonoBehaviour {
     /// their layer to obstacle
     /// </summary>
     /// <param name="Shape">Shape to be deconstructed and added to grid</param>
-    public void AddToGrid(ShapeHandler Shape)
+    public bool AddToGrid(ShapeHandler Shape)
     {
-        List<Transform> children = new List<Transform>();
-
         foreach (Transform block in Shape.transform)
         {
-            int row = GetBlockRowIndex(block);
-            rowDictionary[row].Add(block.gameObject);
-            block.gameObject.layer = LayerMask.NameToLayer("obstacle");
-            children.Add(block);
+            int candidRow = GetBlockRowIndex(block);
+            if (IsRowValid(candidRow))
+            {
+                rowDictionary[candidRow].Add(block.gameObject);
+                block.gameObject.layer = LayerMask.NameToLayer("obstacle");
+                block.parent = gridObstacles.transform;
+            }
+            else
+                return false;
         }
 
-        children.ForEach((child) => { child.parent = gridObstacles.transform; });
+        return true;
     }
 
     /// <summary>

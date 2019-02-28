@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static ShapeHandler;
@@ -35,6 +36,9 @@ public class Settings : MonoBehaviour {
     float hardDropDelay;
     float hardDropTimer;
 
+    [HideInInspector]
+    bool IsGameOver;
+
     void Start()
     {
         gridHandler = FindObjectOfType<GridHandler>();
@@ -57,20 +61,23 @@ public class Settings : MonoBehaviour {
 
     void Update()
     {
-        skipFallForOneFrame = false;
-
-        MapInputToAction();
-
-        if (allowAutomaticDrop)
+        if (!IsGameOver)
         {
-            fallTimer += Time.deltaTime;
+            skipFallForOneFrame = false;
 
-            if (fallTimer >= fallDelay)
+            MapInputToAction();
+
+            if (allowAutomaticDrop)
             {
-                fallTimer = 0F;
-                if (!skipFallForOneFrame)
+                fallTimer += Time.deltaTime;
+
+                if (fallTimer >= fallDelay)
                 {
-                    ActiveShape.MoveShapeIfValid(Move.Down);
+                    fallTimer = 0F;
+                    if (!skipFallForOneFrame)
+                    {
+                        ActiveShape.MoveShapeIfValid(Move.Down);
+                    }
                 }
             }
         }
@@ -106,20 +113,32 @@ public class Settings : MonoBehaviour {
 
         NextShape = ShapeHandler.InstantiateRandomShape();
         NextShape.gameObject.transform.position = shapeHoldPosition;
+
+        if (ActiveShape.OverLapsAnotherShape())
+        {
+            GameOver();
+        }
     }
 
     void OnActiveShapeLanded()
     {
         inputHandler.ResetHardDrop();
+        var isGameOver = gridHandler.AddToGrid(ActiveShape);
 
-        gridHandler.AddToGrid(ActiveShape);
-        Destroy(ActiveShape.gameObject);
+        if (!isGameOver)
+        {
+            Destroy(ActiveShape.gameObject);
 
-        var completedRows = gridHandler.GetCompletedRows();
-        ProcessLineRemoval(completedRows.Count);
-        gridHandler.DeleteRows(completedRows);
+            var completedRows = gridHandler.GetCompletedRows();
+            ProcessLineRemoval(completedRows.Count);
+            gridHandler.DeleteRows(completedRows);
 
-        SpawnRandomShape(false);
+            SpawnRandomShape(false);
+        }
+        else
+        {
+            GameOver();
+        }
     }
 
     void ProcessLineRemoval(int clearedLines)
@@ -165,6 +184,11 @@ public class Settings : MonoBehaviour {
         {
             ActiveShape.RotateShapeIfValid();
         }
+    }
+
+    void GameOver()
+    {
+        IsGameOver = true;
     }
 
     void OnGUI()
