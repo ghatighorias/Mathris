@@ -3,12 +3,12 @@ public static class LineScoreHandler
 {
     const int comboBaseScore = 50;
 
-    public static ScoreResult GerScore(int clearedLines, int comboLevel, int currentLevel)
+    public static ScoreResult GetScore(int clearedLines, int comboLevel, int currentLevel)
     {
-        return GetLineClear(clearedLines, currentLevel) + GetComboScore(comboLevel, currentLevel);
+        return GetLineClearScore(clearedLines, currentLevel) + GetComboScore(comboLevel, currentLevel);
     }
 
-    static ScoreResult GetLineClear(int clearedLines, int currentLevel)
+    static ScoreResult GetLineClearScore(int clearedLines, int currentLevel)
     {
         switch (clearedLines)
         { 

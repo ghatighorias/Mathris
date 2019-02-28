@@ -155,6 +155,9 @@ public class ShapeHandler : MonoBehaviour {
             case 7:
                 shapePostfix = "Z";
                 break;
+            default:
+                Debug.Log("wrong number for instantiating shape");
+                return null;
         }
 
         var shapeFullName = string.Format("Prefabs/{0}_{1}", shapePrefix, shapePostfix);

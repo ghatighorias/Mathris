@@ -107,7 +107,6 @@ public class GridHandler : MonoBehaviour {
         foreach (Transform block in Shape.transform)
         {
             int row = GetBlockRowIndex(block);
-            Debug.Log(row);
             rowDictionary[row].Add(block.gameObject);
             block.gameObject.layer = LayerMask.NameToLayer("obstacle");
             children.Add(block);

@@ -49,10 +49,9 @@ public class Settings : MonoBehaviour {
         hardDropDelay = 0.1F;
 
         comboLevel = 0;
-        currentLevel = 0;
         currentScore = 0;
+        currentLevel = 1;
 
-         
         SpawnRandomShape(true);
     }
 
@@ -131,7 +130,7 @@ public class Settings : MonoBehaviour {
         }
         else
         {
-            var award = LineScoreHandler.GerScore(clearedLines, comboLevel, currentLevel);
+            var award = LineScoreHandler.GetScore(clearedLines, comboLevel, currentLevel);
             clearedLines += award.lineAward;
             currentScore += award.score;
             comboLevel++;
@@ -168,5 +167,11 @@ public class Settings : MonoBehaviour {
         }
     }
 
-
+    void OnGUI()
+    {
+        var output = string.Empty;
+        
+        GUI.Label(new Rect(100, 0, 100, 100), string.Format("score: {0}", currentScore));
+        GUI.Label(new Rect(100, 100, 100, 100), string.Format("combo: {0}", comboLevel));
+    }
 }
