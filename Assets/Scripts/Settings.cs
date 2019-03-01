@@ -35,14 +35,14 @@ public class Settings : MonoBehaviour {
     [HideInInspector]
     bool IsGameOver;
 
-    public ScoreResult ScoreState;
+    public ScoreState scoreState;
 
     void Start()
     {
         gridHandler = FindObjectOfType<GridHandler>();
         inputHandler = GetComponent<InputHandler>();
 
-        ScoreState = new ScoreResult(0, 0);
+        scoreState = new ScoreState(0, 0);
 
         fallTimer = 0F;
 
@@ -157,13 +157,13 @@ public class Settings : MonoBehaviour {
     {
         if (clearedLines <= 0)
         {
-            ScoreState.ResetCombo();
+            scoreState.ResetCombo();
         }
         else
         {
-            ScoreState += LineScoreHandler.GetScore(clearedLines, ScoreState);
+            scoreState += LineScoreHandler.GetScore(clearedLines, scoreState);
 
-            ScoreState.IncreaseCombo();
+            scoreState.IncreaseCombo();
         }
 
     }
@@ -206,8 +206,8 @@ public class Settings : MonoBehaviour {
     {
         var output = string.Empty;
         
-        GUI.Label(new Rect(100, 0, 100, 100), string.Format("level: {0}", ScoreState.Level));
-        GUI.Label(new Rect(100, 50, 100, 100), string.Format("score: {0}", ScoreState.Score));
-        GUI.Label(new Rect(100, 100, 100, 100), string.Format("combo: {0}", ScoreState.ComboLevel));
+        GUI.Label(new Rect(100, 0, 100, 100), string.Format("level: {0}", scoreState.Level));
+        GUI.Label(new Rect(100, 50, 100, 100), string.Format("score: {0}", scoreState.Score));
+        GUI.Label(new Rect(100, 100, 100, 100), string.Format("combo: {0}", scoreState.ComboLevel));
     }
 }
