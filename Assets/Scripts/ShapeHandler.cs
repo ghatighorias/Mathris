@@ -165,31 +165,32 @@ public class ShapeHandler : MonoBehaviour {
         return Instantiate(Resources.Load<GameObject>(shapeFullName), Vector3.zero, Quaternion.identity).GetComponent<ShapeHandler>();
     }
 
-    float GetShapeHighestLandingPoint(float gridBottomY)
+    public ShapeHandler Clone()
     {
-        Transform lowestBlock = null;
-        Transform highestHitLocation = null;
-        bool firstCheck = true;
+        return Instantiate(this).GetComponent<ShapeHandler>();
+    }
+
+    public Vector3 GetShapeLandingOffset(float gridBottomY)
+    {
+        float closestHisLocationDistance = float.MaxValue;
 
         foreach (Transform blockTransform in transform)
         {
-            if (firstCheck || blockTransform.position.y <= lowestBlock.position.y)
+
+            var endRayLocation = new Vector2(blockTransform.position.x, gridBottomY);
+            var hit = Physics2D.Linecast(blockTransform.position, endRayLocation, obstacleLayer);
+
+            if (hit.transform != null )
             {
-                firstCheck = false;
-
-                lowestBlock = blockTransform;
-
-                var endRayLocation = new Vector2(lowestBlock.position.x, gridBottomY);
-                var hit = Physics2D.Linecast(lowestBlock.position, endRayLocation);
-
-                if (hit.transform != null)
+                var hitLocationDistance = (blockTransform.position.y - hit.transform.position.y);
+                if ( hitLocationDistance <= closestHisLocationDistance)
                 {
-                    highestHitLocation = hit.transform;
+                    closestHisLocationDistance = hitLocationDistance;
                 }
             }
         }
 
-        return (lowestBlock.position - highestHitLocation.position + Vector3.up).y;
+        return Vector3.down * closestHisLocationDistance + Vector3.up;
     }
 
     public bool OverLapsAnotherShape()

@@ -15,8 +15,8 @@ public class Settings : MonoBehaviour {
     ShapeHandler ActiveShape;
     ShapeHandler NextShape;
 
-    public bool showGuideShape = true;
-    ShapeHandler GuideShape;
+    public bool showLandingGuide = true;
+    ShapeHandler landingGuideShape;
 
     GridHandler gridHandler;
     InputHandler inputHandler;
@@ -67,6 +67,8 @@ public class Settings : MonoBehaviour {
 
             MapInputToAction();
 
+            UpdatelandingGuideShape();
+
             if (allowAutomaticDrop)
             {
                 fallTimer += Time.deltaTime;
@@ -81,6 +83,15 @@ public class Settings : MonoBehaviour {
                 }
             }
         }
+    }
+
+    void UpdatelandingGuideShape()
+    {
+        landingGuideShape.gameObject.SetActive(showLandingGuide);
+
+        var landingOffset = ActiveShape.GetShapeLandingOffset(-gridHandler.gridSize.y / 2);
+        landingGuideShape.transform.position = ActiveShape.transform.position + landingOffset;
+        landingGuideShape.transform.rotation = ActiveShape.transform.rotation;
     }
 
     void HandleSoftDrop()
@@ -118,6 +129,8 @@ public class Settings : MonoBehaviour {
         {
             GameOver();
         }
+
+        landingGuideShape = ActiveShape.Clone();
     }
 
     void OnActiveShapeLanded()
