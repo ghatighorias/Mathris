@@ -128,7 +128,7 @@ public class ShapeHandler : MonoBehaviour {
 
     public static ShapeHandler InstantiateRandomShape()
     {
-        var randomShapeNumber = UnityEngine.Random.Range(1, 7);
+        var randomShapeNumber = UnityEngine.Random.Range(1, 8);
         var shapePrefix = "Tile";
         var shapePostfix = string.Empty;
 
