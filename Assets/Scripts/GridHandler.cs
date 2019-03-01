@@ -16,8 +16,8 @@ public class GridHandler : MonoBehaviour {
 
     public float Top => transform.position.y + gridSize.y / 2;
     public float Bottom => transform.position.y - gridSize.y / 2;
-    public float Left => transform.position.x + gridSize.x / 2;
-    public float Right => transform.position.x - gridSize.x / 2;
+    public float Left => transform.position.x - gridSize.x / 2;
+    public float Right => transform.position.x + gridSize.x / 2;
 
     private void Start()
     {
@@ -43,21 +43,21 @@ public class GridHandler : MonoBehaviour {
         var gridBottom = transform.Find("GridBottom");
         if (gridBottom != null)
         {
-            gridBottom.transform.position = new Vector3(0, -(float)(gridSize.y) / 2 - (float)blockSize.y / 2, 0);
+            gridBottom.transform.position = new Vector3(0, Bottom - (float)blockSize.y / 2, 0);
             gridBottom.transform.localScale = new Vector3(gridSize.x, 1, 1);
         }
 
         var gridLeft = transform.Find("GridLeft");
         if (gridLeft != null)
         {
-            gridLeft.transform.position = new Vector3(-(float)(gridSize.x) / 2 - (float)blockSize.y / 2, 0, 0);
+            gridLeft.transform.position = new Vector3(Left - (float)blockSize.y / 2, 0, 0);
             gridLeft.transform.localScale = new Vector3(1, gridSize.y + 1, 1);
         }
 
         var gridRight = transform.Find("GridRight");
         if (gridRight != null)
         {
-            gridRight.transform.position = new Vector3(+(float)(gridSize.x) / 2 + (float)blockSize.y / 2, 0, 0);
+            gridRight.transform.position = new Vector3(Right + (float)blockSize.y / 2, 0, 0);
             gridRight.transform.localScale = new Vector3(1, gridSize.y + 1, 1);
         }
     }
@@ -171,14 +171,14 @@ public class GridHandler : MonoBehaviour {
         // draw the grid
         for (int row = 0; row <= gridSize.y; row++)
         {
-            Gizmos.DrawLine(new Vector3(-gridSize.x / 2,  row-gridSize.y / 2, 0),
-                new Vector3(gridSize.x / 2,  row-gridSize.y / 2, 0));
+            Gizmos.DrawLine(new Vector3(Left,  row + Bottom, 0),
+                new Vector3(Right,  row + Bottom, 0));
         }
 
         for (int col = 0; col <= gridSize.x; col++)
         {
-            Gizmos.DrawLine(new Vector3(col-gridSize.x / 2, -gridSize.y / 2, 0),
-                            new Vector3(col-gridSize.x / 2, gridSize.y / 2, 0));
+            Gizmos.DrawLine(new Vector3(col + Left, Bottom, 0),
+                            new Vector3(col + Left, Top, 0));
         }
     }
 
