@@ -3,19 +3,34 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+[RequireComponent(typeof(SpriteRenderer))]
 public class GridHandler : MonoBehaviour {
 
     public Vector2Int gridSize = new Vector2Int(10, 10);
     public Vector2Int blockSize = new Vector2Int(1, 1);
-    Dictionary<int, List<GameObject>> rowDictionary;
+    public Color backgroundColor = Color.white; 
+
 
     Transform gridObstacles;
-
+    Dictionary<int, List<GameObject>> rowDictionary;
 
     private void Start()
     {
         gridObstacles = transform.Find("Obstacles");
+
+        SetupGridBackground();
+
         SetupBound();
+
+        SetupRowDictionary();
+    }
+
+    void SetupGridBackground()
+    {
+        var backgroundRenderer = GetComponent<SpriteRenderer>();
+        backgroundRenderer.drawMode = SpriteDrawMode.Tiled;
+        backgroundRenderer.size = gridSize;
+        backgroundRenderer.color = backgroundColor;
     }
 
     void SetupBound()
@@ -40,8 +55,10 @@ public class GridHandler : MonoBehaviour {
             gridRight.transform.position = new Vector3(+(float)(gridSize.x) / 2 + (float)blockSize.y / 2, 0, 0);
             gridRight.transform.localScale = new Vector3(1, gridSize.y + 1, 1);
         }
+    }
 
-        // create the row keys
+    void SetupRowDictionary()
+    {
         rowDictionary = new Dictionary<int, List<GameObject>>();
         for (int index = 0; index < gridSize.y; index++)
         {
@@ -62,7 +79,7 @@ public class GridHandler : MonoBehaviour {
             // move the object in array
             rowDictionary[destinationRow] = rowDictionary[targetRow];
             rowDictionary[targetRow] = new List<GameObject>();
-            // move the object in viewport
+            // change object position
             rowDictionary[destinationRow].ForEach((block) => block.transform.position += Vector3.down * (targetRow - destinationRow));
         }
     }
@@ -102,6 +119,8 @@ public class GridHandler : MonoBehaviour {
     /// <param name="Shape">Shape to be deconstructed and added to grid</param>
     public bool AddToGrid(ShapeHandler Shape)
     {
+        List<Transform> blocksToAdd = new List<Transform>();
+
         foreach (Transform block in Shape.transform)
         {
             int candidRow = GetBlockRowIndex(block);
@@ -109,11 +128,13 @@ public class GridHandler : MonoBehaviour {
             {
                 rowDictionary[candidRow].Add(block.gameObject);
                 block.gameObject.layer = LayerMask.NameToLayer("obstacle");
-                block.parent = gridObstacles.transform;
+                blocksToAdd.Add(block);
             }
             else
                 return false;
         }
+
+        blocksToAdd.ForEach((block) => block.parent = gridObstacles.transform);
 
         return true;
     }
