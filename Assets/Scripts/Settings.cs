@@ -77,7 +77,7 @@ public class Settings : MonoBehaviour {
     {
         landingGuideShape.gameObject.SetActive(showLandingGuide);
 
-        var landingOffset = ActiveShape.GetShapeLandingOffset(-gridHandler.gridSize.y / 2);
+        var landingOffset = ActiveShape.GetShapeLandingOffset(gridHandler.Bottom);
         landingGuideShape.transform.position = ActiveShape.transform.position + landingOffset;
         landingGuideShape.transform.rotation = ActiveShape.transform.rotation;
     }

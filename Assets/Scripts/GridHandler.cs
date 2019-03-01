@@ -14,6 +14,11 @@ public class GridHandler : MonoBehaviour {
     Transform gridObstacles;
     Dictionary<int, List<GameObject>> rowDictionary;
 
+    public float Top => transform.position.y + gridSize.y / 2;
+    public float Bottom => transform.position.y - gridSize.y / 2;
+    public float Left => transform.position.x + gridSize.x / 2;
+    public float Right => transform.position.x - gridSize.x / 2;
+
     private void Start()
     {
         gridObstacles = transform.Find("Obstacles");
