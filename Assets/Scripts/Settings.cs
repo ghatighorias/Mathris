@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using static ShapeHandler;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(InputHandler))]
 public class Settings : MonoBehaviour {
