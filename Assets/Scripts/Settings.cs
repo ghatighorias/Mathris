@@ -26,13 +26,6 @@ public class Settings : MonoBehaviour {
 
     float fallTimer;
 
-    [HideInInspector]
-    public int comboLevel;
-    [HideInInspector]
-    public int currentLevel;
-    [HideInInspector]
-    public int currentScore;
-
     float softDropDelay;
     float softDropTimer;
 
@@ -42,10 +35,14 @@ public class Settings : MonoBehaviour {
     [HideInInspector]
     bool IsGameOver;
 
+    public ScoreResult ScoreState;
+
     void Start()
     {
         gridHandler = FindObjectOfType<GridHandler>();
         inputHandler = GetComponent<InputHandler>();
+
+        ScoreState = new ScoreResult(0, 0);
 
         fallTimer = 0F;
 
@@ -54,10 +51,6 @@ public class Settings : MonoBehaviour {
 
         hardDropTimer = 0F;
         hardDropDelay = 0.1F;
-
-        comboLevel = 0;
-        currentScore = 0;
-        currentLevel = 1;
 
         SpawnRandomShape(true);
     }
@@ -160,14 +153,13 @@ public class Settings : MonoBehaviour {
     {
         if (clearedLines <= 0)
         {
-            comboLevel = 0;
+            ScoreState.ResetCombo();
         }
         else
         {
-            var award = LineScoreHandler.GetScore(clearedLines, comboLevel, currentLevel);
-            clearedLines += award.lineAward;
-            currentScore += award.score;
-            comboLevel++;
+            ScoreState += LineScoreHandler.GetScore(clearedLines, ScoreState);
+
+            ScoreState.IncreaseCombo();
         }
 
     }
@@ -210,7 +202,8 @@ public class Settings : MonoBehaviour {
     {
         var output = string.Empty;
         
-        GUI.Label(new Rect(100, 0, 100, 100), string.Format("score: {0}", currentScore));
-        GUI.Label(new Rect(100, 100, 100, 100), string.Format("combo: {0}", comboLevel));
+        GUI.Label(new Rect(100, 0, 100, 100), string.Format("level: {0}", ScoreState.Level));
+        GUI.Label(new Rect(100, 50, 100, 100), string.Format("score: {0}", ScoreState.Score));
+        GUI.Label(new Rect(100, 100, 100, 100), string.Format("combo: {0}", ScoreState.ComboLevel));
     }
 }
