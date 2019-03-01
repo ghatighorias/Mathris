@@ -273,6 +273,22 @@ MonoBehaviour:
   showLandingGuide: 1
   softDropDelay: 0
   hardDropDelay: 0
+  Numbers:
+  - {fileID: 21300000, guid: 8b947acd03854417fb9aec645fa2ce07, type: 3}
+  - {fileID: 21300000, guid: 69843b4f2641944aca4ea792f2b03449, type: 3}
+  - {fileID: 21300000, guid: 4af2bcaac0bde4737a1c5d64c45947a2, type: 3}
+  - {fileID: 21300000, guid: a783d901e45b144bb879a887b41f9069, type: 3}
+  - {fileID: 21300000, guid: ec05b2b8ced3a4f27930ac8b3e7e1f85, type: 3}
+  - {fileID: 21300000, guid: 5f22351a228a74168988ba786c868978, type: 3}
+  - {fileID: 21300000, guid: 4535985133512418bb85bb62dad24996, type: 3}
+  - {fileID: 21300000, guid: ffb5ae7ab30b949d3b87271a2a1c233e, type: 3}
+  - {fileID: 21300000, guid: 44b62ee0a88ee44ebb6f05a2fd1bb14c, type: 3}
+  - {fileID: 21300000, guid: d6c626ed149ca4d2d8cfa304c2c4a897, type: 3}
+  Operators:
+  - {fileID: 21300000, guid: 3c1a14ce8583f496a88417dbaf9689c6, type: 3}
+  - {fileID: 21300000, guid: 9e27c698b952d44bfa264cced8752b5d, type: 3}
+  - {fileID: 21300000, guid: 0ed8512484d274351b3166575fcb72fa, type: 3}
+  - {fileID: 21300000, guid: c253f9bb9deef48fca5e3491cf7db663, type: 3}
 --- !u!4 &2007972269
 Transform:
   m_ObjectHideFlags: 0

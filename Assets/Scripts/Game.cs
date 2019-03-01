@@ -28,6 +28,9 @@ public class Game : MonoBehaviour {
     public float hardDropDelay = 0.1F;
     float hardDropTimer;
 
+    public Sprite[] Numbers;
+    public Sprite[] Operators;
+
     [HideInInspector]
     bool IsGameOver;
 
@@ -187,6 +190,11 @@ public class Game : MonoBehaviour {
         {
             ActiveShape.RotateShapeIfValid();
         }
+    }
+
+    Sprite GetMathItemSprite()
+    {
+        return Numbers[0];
     }
 
     void GameOver()

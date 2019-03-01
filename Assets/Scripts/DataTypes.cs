@@ -1,4 +1,6 @@
-﻿public enum ActionType
+﻿using UnityEngine;
+
+public enum ActionType
 {
     None,
     Rotate,
@@ -27,6 +29,25 @@ public enum RaytraceHitResultType
     GridWall,
     GridBottom,
     Block
+}
+
+public enum MathItemType
+{
+    Zero,
+    One,
+    Two,
+    Three,
+    Four,
+    Five,
+    Six,
+    Seven,
+    Eight,
+    Nine,
+    Plus,
+    Minus,
+    Division,
+    Multiply,
+    Unknown
 }
 
 public struct ScoreState
