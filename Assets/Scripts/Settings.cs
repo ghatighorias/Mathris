@@ -12,6 +12,9 @@ public class Settings : MonoBehaviour {
     public Vector3 shapeHoldPosition = Vector3.zero;
     bool skipFallForOneFrame;
 
+    public int shapeSortingLayer = 2;
+    public int guideShapeSortingLayer = 1;
+
     ShapeHandler ActiveShape;
     ShapeHandler NextShape;
 
@@ -118,11 +121,11 @@ public class Settings : MonoBehaviour {
 
     void SpawnRandomShape(bool firstBlock)
     {
-        ActiveShape = firstBlock ? ShapeHandler.InstantiateRandomShape() : NextShape;
+        ActiveShape = firstBlock ? ShapeHandler.InstantiateRandomShape(shapeSortingLayer) : NextShape;
         ActiveShape.gameObject.transform.position = shapeSpawnPosition;
         ActiveShape.ShapeLanded = OnActiveShapeLanded;
 
-        NextShape = ShapeHandler.InstantiateRandomShape();
+        NextShape = ShapeHandler.InstantiateRandomShape(shapeSortingLayer);
         NextShape.gameObject.transform.position = shapeHoldPosition;
 
         if (ActiveShape.OverLapsAnotherShape())
@@ -130,7 +133,7 @@ public class Settings : MonoBehaviour {
             GameOver();
         }
 
-        landingGuideShape = ActiveShape.Clone();
+        landingGuideShape = ActiveShape.Clone(Color.grey, guideShapeSortingLayer);
     }
 
     void OnActiveShapeLanded()

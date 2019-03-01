@@ -126,7 +126,7 @@ public class ShapeHandler : MonoBehaviour {
         }
     }
 
-    public static ShapeHandler InstantiateRandomShape()
+    public static ShapeHandler InstantiateRandomShape(int sortingLayer)
     {
         var randomShapeNumber = UnityEngine.Random.Range(1, 8);
         var shapePrefix = "Tile";
@@ -162,12 +162,27 @@ public class ShapeHandler : MonoBehaviour {
 
         var shapeFullName = string.Format("Prefabs/{0}_{1}", shapePrefix, shapePostfix);
 
-        return Instantiate(Resources.Load<GameObject>(shapeFullName), Vector3.zero, Quaternion.identity).GetComponent<ShapeHandler>();
+        var shape = Instantiate(Resources.Load<GameObject>(shapeFullName), Vector3.zero, Quaternion.identity);
+        foreach (Transform block in shape.transform)
+        {
+            var spriteRenderer = block.GetComponent<SpriteRenderer>();
+            spriteRenderer.sortingOrder = sortingLayer;
+        }
+        return shape.GetComponent<ShapeHandler>();
     }
 
-    public ShapeHandler Clone()
+    public ShapeHandler Clone(Color color, int sortingLayer)
     {
-        return Instantiate(this).GetComponent<ShapeHandler>();
+        var clonedShape = Instantiate(this);
+
+        foreach (Transform block in clonedShape.transform)
+        {
+            var spriteRenderer = block.GetComponent<SpriteRenderer>();
+            spriteRenderer.color = color;
+            spriteRenderer.sortingOrder = sortingLayer;
+        }
+
+        return clonedShape.GetComponent<ShapeHandler>();
     }
 
     public Vector3 GetShapeLandingOffset(float gridBottomY)
