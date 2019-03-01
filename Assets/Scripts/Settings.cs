@@ -15,7 +15,7 @@ public class Settings : MonoBehaviour {
     ShapeHandler ActiveShape;
     ShapeHandler NextShape;
 
-    bool showGuideShape = true;
+    public bool showGuideShape = true;
     ShapeHandler GuideShape;
 
     GridHandler gridHandler;
@@ -123,9 +123,8 @@ public class Settings : MonoBehaviour {
     void OnActiveShapeLanded()
     {
         inputHandler.ResetHardDrop();
-        var isGameOver = gridHandler.AddToGrid(ActiveShape);
 
-        if (!isGameOver)
+        if (gridHandler.AddToGrid(ActiveShape))
         {
             Destroy(ActiveShape.gameObject);
 
