@@ -271,9 +271,8 @@ MonoBehaviour:
   shapeSortingLayer: 2
   guideShapeSortingLayer: 1
   showLandingGuide: 1
-  comboLevel: 0
-  currentLevel: 0
-  currentScore: 0
+  softDropDelay: 0.1
+  hardDropDelay: 0.1
 --- !u!4 &2007972269
 Transform:
   m_ObjectHideFlags: 0

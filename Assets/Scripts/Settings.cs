@@ -22,10 +22,10 @@ public class Settings : MonoBehaviour {
 
     float fallTimer;
 
-    float softDropDelay;
+    public float softDropDelay = 0.1F;
     float softDropTimer;
 
-    float hardDropDelay;
+    public float hardDropDelay = 0.1F;
     float hardDropTimer;
 
     [HideInInspector]
@@ -35,18 +35,14 @@ public class Settings : MonoBehaviour {
 
     void Start()
     {
+        fallTimer = 0F;
+        softDropTimer = 0F;
+        hardDropTimer = 0F;
+
+        scoreState = new ScoreState(0, 0); 
+
         gridHandler = FindObjectOfType<GridHandler>();
         inputHandler = GetComponent<InputHandler>();
-
-        scoreState = new ScoreState(0, 0);
-
-        fallTimer = 0F;
-
-        softDropTimer = 0F;
-        softDropDelay = 0.2F;
-
-        hardDropTimer = 0F;
-        hardDropDelay = 0.1F;
 
         SpawnRandomShape(true);
     }
