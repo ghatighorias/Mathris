@@ -126,6 +126,10 @@ public class Settings : MonoBehaviour {
             GameOver();
         }
 
+        if(landingGuideShape)
+        {
+            Destroy(landingGuideShape.gameObject);
+        }
         landingGuideShape = ActiveShape.Clone(Color.grey, guideShapeSortingLayer);
     }
 
