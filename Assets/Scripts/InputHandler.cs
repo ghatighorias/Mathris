@@ -21,10 +21,7 @@ public class InputHandler : MonoBehaviour
             ActionMapper.softDrop = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            ActionMapper.hardDrop = true;
-        }
+        ActionMapper.hardDrop |= Input.GetKeyDown(KeyCode.Space);
 
         ActionMapper.rotate = Input.GetKeyDown(KeyCode.UpArrow);
         ActionMapper.moveLeft = Input.GetKeyDown(KeyCode.LeftArrow);
