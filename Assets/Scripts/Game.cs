@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(InputHandler))]
-public class Settings : MonoBehaviour {
+public class Game : MonoBehaviour {
     public float fallDelay = 1F;
     public bool allowAutomaticDrop = true;
     public Vector3 shapeSpawnPosition = Vector3.zero;
