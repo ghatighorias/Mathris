@@ -163,6 +163,16 @@ public class GridHandler : MonoBehaviour {
         return completedRows;
     }
 
+    public List<GameObject> GetRowBlocks(int row)
+    {
+        if (IsRowValid(row))
+        {
+            return rowDictionary[row];
+        }
+
+        return null;
+    }
+
     private void OnDrawGizmos()
     {
         SetupBound();

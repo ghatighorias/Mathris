@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 [RequireComponent(typeof(InputHandler))]
 public class Game : MonoBehaviour {
@@ -137,7 +138,11 @@ public class Game : MonoBehaviour {
             Destroy(ActiveShape.gameObject);
 
             var completedRows = gridHandler.GetCompletedRows();
+
+            CheckMathEquation(completedRows);
+
             ProcessLineRemoval(completedRows.Count);
+
             gridHandler.DeleteRows(completedRows);
 
             SpawnRandomShape(false);
@@ -145,6 +150,26 @@ public class Game : MonoBehaviour {
         else
         {
             GameOver();
+        }
+    }
+
+    void CheckMathEquation(List<int> clearedRowIndexes)
+    {
+        List<string> mathEquations = new List<string>();
+        int equationCounter = 0;
+
+        foreach (var row in clearedRowIndexes)
+        {
+            foreach (var block in gridHandler.GetRowBlocks(row))
+            {
+                var mathBlock = block.transform.GetComponentInChildren<MathBlock>();
+                if (mathBlock)
+                {
+                    mathEquations[equationCounter] += mathBlock.GetStringValue();
+                }
+            }
+
+            equationCounter++;
         }
     }
 

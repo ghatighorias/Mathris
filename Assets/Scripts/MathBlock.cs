@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MathBlock : MonoBehaviour {
+
     public MathItemType Type;
     public Sprite mathSprite;
     public Color color = Color.white;
@@ -81,7 +82,6 @@ public class MathBlock : MonoBehaviour {
 
     /*
      * randomize numbers and operators differently
-     * map the mathitemtype enum to prefab names
      */
 
 }
