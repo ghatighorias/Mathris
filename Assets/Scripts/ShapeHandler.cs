@@ -129,40 +129,9 @@ public class ShapeHandler : MonoBehaviour {
     public static ShapeHandler InstantiateRandomShape(int sortingLayer)
     {
         var randomShapeNumber = UnityEngine.Random.Range(1, 8);
-        var shapePrefix = "Tile";
-        var shapePostfix = string.Empty;
+  
+        var shape = Instantiate(ResourceLoader.LoadShapePrefab(randomShapeNumber), Vector3.zero, Quaternion.identity);
 
-        switch (randomShapeNumber)
-        {
-            case 1:
-                shapePostfix = "J";
-                break;
-            case 2:
-                shapePostfix = "L";
-                break;
-            case 3:
-                shapePostfix = "Long";
-                break;
-            case 4:
-                shapePostfix = "S";
-                break;
-            case 5:
-                shapePostfix = "Square";
-                break;
-            case 6:
-                shapePostfix = "T";
-                break;
-            case 7:
-                shapePostfix = "Z";
-                break;
-            default:
-                Debug.Log("wrong number for instantiating shape");
-                return null;
-        }
-
-        var shapeFullName = string.Format("Prefabs/{0}_{1}", shapePrefix, shapePostfix);
-
-        var shape = Instantiate(Resources.Load<GameObject>(shapeFullName), Vector3.zero, Quaternion.identity);
         foreach (Transform block in shape.transform)
         {
             var spriteRenderer = block.GetComponent<SpriteRenderer>();
