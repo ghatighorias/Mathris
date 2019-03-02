@@ -3,15 +3,44 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MathBlock : MonoBehaviour {
-
-
     public MathItemType Type;
     public Sprite mathSprite;
     public Color color = Color.white;
-	
-	void Start () {
-        GetComponent<SpriteRenderer>().color = color;
-	}
+
+    public static MathBlock InstantiateRandomMathBlock(MathItemType type, Color bgColor, Transform parent)
+    {
+        return Instantiate(type, bgColor, parent);
+    }
+
+    public static MathBlock Instantiate(MathItemType type, Color bgColor, Transform parent)
+    {
+        var loadedResource = ResourceLoader.LoadMathItemPrefab(type, bgColor);
+
+        if (!loadedResource)
+            return null;
+
+        var mathBlock = Instantiate(loadedResource, parent)?.GetComponent<MathBlock>();
+
+        if (!mathBlock)
+            return null;
+
+        mathBlock.GetComponent<SpriteRenderer>().color = bgColor;
+        mathBlock.Type = type;
+
+        return mathBlock;
+    }
+
+    public static string GetMathEquation(List<MathBlock> mathBlocks)
+    {
+        string equasion = string.Empty;
+
+        foreach (var mathBlock in mathBlocks)
+        {
+            equasion += mathBlock.GetStringValue();
+        }
+
+        return equasion;
+    }
 
     public string GetStringValue()
     {
@@ -49,4 +78,10 @@ public class MathBlock : MonoBehaviour {
                 return string.Empty;
         }
     }
+
+    /*
+     * randomize numbers and operators differently
+     * map the mathitemtype enum to prefab names
+     */
+
 }
