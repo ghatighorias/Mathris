@@ -4,7 +4,9 @@ using UnityEngine.UI;
 
 [RequireComponent(typeof(InputHandler))]
 public class Game : MonoBehaviour {
+    public float decreaseFallDelayByLevel = 0f;
     public float fallDelay = 1F;
+    public float inUseFallDelay = 1F;
     public bool allowAutomaticDrop = true;
     
     bool skipFallForOneFrame;
@@ -58,6 +60,7 @@ public class Game : MonoBehaviour {
 
     void Start()
     {
+        inUseFallDelay = fallDelay;
         fallTimer = 0F;
         softDropTimer = 0F;
         hardDropTimer = 0F;
@@ -84,7 +87,7 @@ public class Game : MonoBehaviour {
             {
                 fallTimer += Time.deltaTime;
 
-                if (fallTimer >= fallDelay)
+                if (fallTimer >= inUseFallDelay)
                 {
                     fallTimer = 0F;
                     if (!skipFallForOneFrame)
@@ -173,6 +176,8 @@ public class Game : MonoBehaviour {
             gridHandler.DeleteRows(completedRows);
 
             SpawnRandomShape(false);
+
+            inUseFallDelay = Mathf.Max(0, fallDelay - scoreState.Level * decreaseFallDelayByLevel);
         }
         else
         {
