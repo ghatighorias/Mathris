@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField]
-    string menuSceneName;
-
-    [SerializeField]
-    string gameSceneName;
+    public string menuSceneName;
+    public string gameSceneName;
 
     void Awake()
     {

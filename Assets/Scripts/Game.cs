@@ -32,17 +32,12 @@ public class Game : MonoBehaviour {
     public Sprite[] Numbers;
     public Sprite[] Operators;
 
-    [SerializeField]
-    GameObject spawnLocationIndicator;
-    [SerializeField]
-    GameObject nextShapeLocationIndicator;
+    public GameObject spawnLocationIndicator;
+    public GameObject nextShapeLocationIndicator;
 
-    [SerializeField]
-    GameObject levelIndicatorText;
-    [SerializeField]
-    GameObject scoreIndicatorText;
-    [SerializeField]
-    GameObject linesIndicatorText;
+    public GameObject levelIndicatorText;
+    public GameObject scoreIndicatorText;
+    public GameObject linesIndicatorText;
 
 
     Text levelIndicatorTextComponent;
@@ -56,9 +51,9 @@ public class Game : MonoBehaviour {
 
     void Awake()
     {
-        levelIndicatorTextComponent = levelIndicatorText.GetComponent<Text>();
-        scoreIndicatorTextComponent = scoreIndicatorText.GetComponent<Text>();
-        linesIndicatorTextComponent = linesIndicatorText.GetComponent<Text>();
+        levelIndicatorTextComponent = levelIndicatorText?.GetComponent<Text>();
+        scoreIndicatorTextComponent = scoreIndicatorText?.GetComponent<Text>();
+        linesIndicatorTextComponent = linesIndicatorText?.GetComponent<Text>();
     }
 
     void Start()
@@ -200,7 +195,7 @@ public class Game : MonoBehaviour {
                     mathEquations[equationCounter] += mathBlock.GetStringValue();
                 }
             }
-
+            
             equationCounter++;
         }
     }
@@ -218,9 +213,12 @@ public class Game : MonoBehaviour {
             scoreState.IncreaseCombo();
         }
 
-        levelIndicatorTextComponent.text = scoreState.Level.ToString();
-        scoreIndicatorTextComponent.text = scoreState.Score.ToString();
-        linesIndicatorTextComponent.text = scoreState.ClearedLines.ToString();
+        if(levelIndicatorTextComponent != null)
+            levelIndicatorTextComponent.text = scoreState.Level.ToString();
+        if (levelIndicatorTextComponent != null)
+            scoreIndicatorTextComponent.text = scoreState.Score.ToString();
+        if (levelIndicatorTextComponent != null)
+            linesIndicatorTextComponent.text = scoreState.ClearedLines.ToString();
     }
 
     void MapInputToAction()
