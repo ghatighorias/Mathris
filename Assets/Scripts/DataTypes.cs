@@ -1,5 +1,11 @@
 ﻿using UnityEngine;
 
+public enum SceneOptions
+{
+    Menu,
+    Game
+}
+
 public enum ActionType
 {
     None,

@@ -4,8 +4,8 @@ using UnityEditor;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
-public class GridHandler : MonoBehaviour {
-
+public class GridHandler : MonoBehaviour
+{
     public Vector2Int gridSize = new Vector2Int(10, 10);
     public Vector2Int blockSize = new Vector2Int(1, 1);
     public Color backgroundColor = Color.white; 
