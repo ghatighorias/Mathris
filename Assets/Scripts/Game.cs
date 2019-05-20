@@ -34,7 +34,6 @@ public class Game : MonoBehaviour {
 
     [SerializeField]
     GameObject spawnLocationIndicator;
-
     [SerializeField]
     GameObject nextShapeLocationIndicator;
 
@@ -42,10 +41,13 @@ public class Game : MonoBehaviour {
     GameObject levelIndicatorText;
     [SerializeField]
     GameObject scoreIndicatorText;
+    [SerializeField]
+    GameObject linesIndicatorText;
 
 
     Text levelIndicatorTextComponent;
     Text scoreIndicatorTextComponent;
+    Text linesIndicatorTextComponent;
 
     [HideInInspector]
     bool IsGameOver;
@@ -56,6 +58,7 @@ public class Game : MonoBehaviour {
     {
         levelIndicatorTextComponent = levelIndicatorText.GetComponent<Text>();
         scoreIndicatorTextComponent = scoreIndicatorText.GetComponent<Text>();
+        linesIndicatorTextComponent = linesIndicatorText.GetComponent<Text>();
     }
 
     void Start()
@@ -169,7 +172,7 @@ public class Game : MonoBehaviour {
             var completedRows = gridHandler.GetCompletedRows();
 
             CheckMathEquation(completedRows);
-
+            Debug.Log(completedRows.Count);
             ProcessLineRemoval(completedRows.Count);
 
             gridHandler.DeleteRows(completedRows);
@@ -217,6 +220,7 @@ public class Game : MonoBehaviour {
 
         levelIndicatorTextComponent.text = scoreState.Level.ToString();
         scoreIndicatorTextComponent.text = scoreState.Score.ToString();
+        linesIndicatorTextComponent.text = scoreState.ClearedLines.ToString();
     }
 
     void MapInputToAction()

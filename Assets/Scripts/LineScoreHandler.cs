@@ -12,10 +12,10 @@ public static class LineScoreHandler
     {
         switch (clearedLines)
         { 
-            case 1: return new ScoreState(100 * currentLevel, 1);
-            case 2: return new ScoreState(300 * currentLevel, 3);
-            case 3: return new ScoreState(500 * currentLevel, 5);
-            case 4: return new ScoreState(800 * currentLevel, 8);
+            case 1: return new ScoreState(100 * currentLevel, clearedLines);
+            case 2: return new ScoreState(300 * currentLevel, clearedLines);
+            case 3: return new ScoreState(500 * currentLevel, clearedLines);
+            case 4: return new ScoreState(800 * currentLevel, clearedLines);
             default: return new ScoreState(0, 0);
         }
     }
