@@ -132,6 +132,9 @@ public class Game : MonoBehaviour {
     void SpawnRandomShape(bool firstBlock)
     {
         ActiveShape = firstBlock ? ShapeHandler.InstantiateRandomShape(shapeSortingLayer) : NextShape;
+
+        ActiveShape.gameObject.SetActive(false);
+
         ActiveShape.gameObject.transform.position = spawnLocationIndicator != null ? spawnLocationIndicator.transform.position : Vector3.zero;
         ActiveShape.ShapeLanded = OnActiveShapeLanded;
 
@@ -142,12 +145,17 @@ public class Game : MonoBehaviour {
         {
             GameOver();
         }
-
-        if(landingGuideShape)
+        else
         {
-            Destroy(landingGuideShape.gameObject);
+            ActiveShape.gameObject.SetActive(true);
+
+            if (landingGuideShape)
+            {
+                Destroy(landingGuideShape.gameObject);
+            }
+
+            landingGuideShape = ActiveShape.Clone(Color.grey, guideShapeSortingLayer);
         }
-        landingGuideShape = ActiveShape.Clone(Color.grey, guideShapeSortingLayer);
     }
 
     void OnActiveShapeLanded()
@@ -248,5 +256,6 @@ public class Game : MonoBehaviour {
     void GameOver()
     {
         IsGameOver = true;
+        Scenes.Instance.LoadLevel(SceneOptions.Menu);
     }
 }
