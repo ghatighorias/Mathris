@@ -50,15 +50,15 @@ public class GridHandler : MonoBehaviour {
         var gridLeft = transform.Find("GridLeft");
         if (gridLeft != null)
         {
-            gridLeft.transform.position = new Vector3(Left - (float)blockSize.y / 2, 0, 0);
-            gridLeft.transform.localScale = new Vector3(1, gridSize.y + 1, 1);
+            gridLeft.transform.position = new Vector3(Left - (float)blockSize.y / 2, (float)blockSize.y / 2, 0);
+            gridLeft.transform.localScale = new Vector3(1, gridSize.y + 3, 1);
         }
 
         var gridRight = transform.Find("GridRight");
         if (gridRight != null)
         {
-            gridRight.transform.position = new Vector3(Right + (float)blockSize.y / 2, 0, 0);
-            gridRight.transform.localScale = new Vector3(1, gridSize.y + 1, 1);
+            gridRight.transform.position = new Vector3(Right + (float)blockSize.y / 2, (float)blockSize.y / 2, 0);
+            gridRight.transform.localScale = new Vector3(1, gridSize.y + 3, 1);
         }
     }
 
