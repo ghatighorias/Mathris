@@ -191,15 +191,4 @@ public class GridHandler : MonoBehaviour
                             new Vector3(col + Left, Top, 0));
         }
     }
-
-    void OnGUI()
-    {
-        var output = string.Empty;
-        for (int i = rowDictionary.Count - 1; i >= 0; i--)
-        {
-            output += string.Format("\nrow-{0} : {1}", i, rowDictionary[i].Count);
-        }
-        GUI.Label(new Rect(0, 0, 100, 350), output);
-    }
-
 }

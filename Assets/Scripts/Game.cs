@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(InputHandler))]
 public class Game : MonoBehaviour {
     public float fallDelay = 1F;
     public bool allowAutomaticDrop = true;
-    public Vector3 shapeSpawnPosition = Vector3.zero;
-    public Vector3 shapeHoldPosition = Vector3.zero;
+    
     bool skipFallForOneFrame;
 
     public int shapeSortingLayer = 2;
@@ -32,10 +32,31 @@ public class Game : MonoBehaviour {
     public Sprite[] Numbers;
     public Sprite[] Operators;
 
+    [SerializeField]
+    GameObject spawnLocationIndicator;
+
+    [SerializeField]
+    GameObject nextShapeLocationIndicator;
+
+    [SerializeField]
+    GameObject levelIndicatorText;
+    [SerializeField]
+    GameObject scoreIndicatorText;
+
+
+    Text levelIndicatorTextComponent;
+    Text scoreIndicatorTextComponent;
+
     [HideInInspector]
     bool IsGameOver;
 
     public ScoreState scoreState;
+
+    void Awake()
+    {
+        levelIndicatorTextComponent = levelIndicatorText.GetComponent<Text>();
+        scoreIndicatorTextComponent = scoreIndicatorText.GetComponent<Text>();
+    }
 
     void Start()
     {
@@ -111,11 +132,11 @@ public class Game : MonoBehaviour {
     void SpawnRandomShape(bool firstBlock)
     {
         ActiveShape = firstBlock ? ShapeHandler.InstantiateRandomShape(shapeSortingLayer) : NextShape;
-        ActiveShape.gameObject.transform.position = shapeSpawnPosition;
+        ActiveShape.gameObject.transform.position = spawnLocationIndicator != null ? spawnLocationIndicator.transform.position : Vector3.zero;
         ActiveShape.ShapeLanded = OnActiveShapeLanded;
 
         NextShape = ShapeHandler.InstantiateRandomShape(shapeSortingLayer);
-        NextShape.gameObject.transform.position = shapeHoldPosition;
+        NextShape.gameObject.transform.position = nextShapeLocationIndicator != null ? nextShapeLocationIndicator.transform.position : Vector3.zero; ;
 
         if (ActiveShape.OverlapsAnotherShape())
         {
@@ -186,6 +207,8 @@ public class Game : MonoBehaviour {
             scoreState.IncreaseCombo();
         }
 
+        levelIndicatorTextComponent.text = scoreState.Level.ToString();
+        scoreIndicatorTextComponent.text = scoreState.Score.ToString();
     }
 
     void MapInputToAction()
@@ -225,14 +248,5 @@ public class Game : MonoBehaviour {
     void GameOver()
     {
         IsGameOver = true;
-    }
-
-    void OnGUI()
-    {
-        var output = string.Empty;
-        
-        GUI.Label(new Rect(100, 0, 100, 100), string.Format("level: {0}", scoreState.Level));
-        GUI.Label(new Rect(100, 50, 100, 100), string.Format("score: {0}", scoreState.Score));
-        GUI.Label(new Rect(100, 100, 100, 100), string.Format("combo: {0}", scoreState.ComboLevel));
     }
 }
