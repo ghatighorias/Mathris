@@ -97,7 +97,7 @@ public class Game : MonoBehaviour {
         }
     }
 
-    void HandleDropDrop()
+    void HandleHardDrop()
     {
             hardDropTimer += Time.deltaTime;
 
@@ -117,7 +117,7 @@ public class Game : MonoBehaviour {
         NextShape = ShapeHandler.InstantiateRandomShape(shapeSortingLayer);
         NextShape.gameObject.transform.position = shapeHoldPosition;
 
-        if (ActiveShape.OverLapsAnotherShape())
+        if (ActiveShape.OverlapsAnotherShape())
         {
             GameOver();
         }
@@ -194,7 +194,7 @@ public class Game : MonoBehaviour {
 
         if (userAction.hardDrop)
         {
-            HandleDropDrop();
+            HandleHardDrop();
         }
         else if (userAction.softDrop)
         {
