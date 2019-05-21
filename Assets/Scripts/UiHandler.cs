@@ -55,7 +55,16 @@ public class UiHandler : MonoBehaviour
 
     public void StartGame()
     {
-        gameManager.GameState = GameState.Playing;
+        if (gameManager.GameState == GameState.NotStarted)
+        {
+            gameManager.GameState = GameState.Playing;
+
+        }
+        else if (gameManager.GameState == GameState.Over)
+        {
+            gameManager.GameState = GameState.Restart;
+
+        }
     }
 
     public void QuitGame()

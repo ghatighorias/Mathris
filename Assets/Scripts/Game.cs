@@ -92,6 +92,11 @@ public class Game : MonoBehaviour {
                 Destroy(NextShape?.gameObject);
                 Destroy(landingGuideShape?.gameObject);
                 break;
+            case GameState.Restart:
+                gridHandler.ClearGrid();
+                Initialize();
+                gameManager.GameState = GameState.Playing;
+                break;
         }
     }
 
@@ -109,6 +114,8 @@ public class Game : MonoBehaviour {
         hardDropTimer = 0F;
 
         scoreState = new ScoreState(0, 0);
+
+        UpdateScore();
 
         SpawnRandomShape(true);
     }
@@ -258,7 +265,12 @@ public class Game : MonoBehaviour {
             scoreState.IncreaseCombo();
         }
 
-        if(levelIndicatorTextComponent != null)
+        UpdateScore();
+    }
+
+    private void UpdateScore()
+    {
+        if (levelIndicatorTextComponent != null)
             levelIndicatorTextComponent.text = scoreState.Level.ToString();
         if (levelIndicatorTextComponent != null)
             scoreIndicatorTextComponent.text = scoreState.Score.ToString();

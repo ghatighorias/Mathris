@@ -6,7 +6,8 @@ public enum GameState
     NotStarted,
     Playing,
     Paused,
-    Over
+    Over,
+    Restart
 }
 
 public enum SceneOptions

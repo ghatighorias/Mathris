@@ -20,6 +20,16 @@ public class GridHandler : MonoBehaviour
     public float Left => transform.position.x - gridSize.x / 2;
     public float Right => transform.position.x + gridSize.x / 2;
 
+    public void ClearGrid()
+    {
+        foreach (Transform obstacle in gridObstacles)
+        {
+            Destroy(obstacle.gameObject);
+        }
+
+        SetupRowDictionary();
+    }
+
     public void SetObstacleActive(bool active)
     {
         gridObstacles.gameObject.SetActive(active);
