@@ -5,9 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(UiHandler)), RequireComponent(typeof(InputHandler)), RequireComponent(typeof(Game))]
 public class GameManager : MonoBehaviour
 {
-    public string menuSceneName;
-    public string gameSceneName;
-
     public delegate void GameStateChanged(GameState newState);
     public event GameStateChanged OnGameStateChanged;
 
@@ -30,8 +27,6 @@ public class GameManager : MonoBehaviour
         GameState = GameState.NotStarted;
     }
 
-    public void LoadGame() => Scenes.Instance.LoadLevel(SceneOptions.Game);
-    public void LoadMenu() => Scenes.Instance.LoadLevel(SceneOptions.Menu);
     public void Quit()
     {
 #if UNITY_EDITOR
