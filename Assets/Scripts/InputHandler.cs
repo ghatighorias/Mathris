@@ -19,7 +19,7 @@ public class InputHandler : MonoBehaviour
     {
         if (gameManager?.GameState == GameState.Playing)
         {
-            GetUserAction();
+            UpdateUserAction();
         }
 
         if (Input.GetButtonDown("Pause"))
@@ -28,36 +28,17 @@ public class InputHandler : MonoBehaviour
         }
     }
 
-    public void GetUserAction()
+    public void UpdateUserAction()
     {
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            ActionMapper.softDrop = true;
-        }
-        else if (Input.GetKeyUp(KeyCode.DownArrow))
-        {
-            ActionMapper.softDrop = false;
-        }
-
-        ActionMapper.hardDrop |= Input.GetKeyDown(KeyCode.Space);
-
-        ActionMapper.rotate = Input.GetKeyDown(KeyCode.UpArrow);
-        ActionMapper.moveLeft = Input.GetKeyDown(KeyCode.LeftArrow);
-        ActionMapper.moveRight = Input.GetKeyDown(KeyCode.RightArrow);
+        ActionMapper.rotate = Input.GetButtonDown("Rotate");
+        ActionMapper.softDrop = Input.GetButton("SoftDrop");
+        ActionMapper.hardDrop |= Input.GetButtonDown("HardDrop");
+        ActionMapper.moveLeft = Input.GetButtonDown("MoveLeft");
+        ActionMapper.moveRight = Input.GetButtonDown("MoveRight");
     }
 
     public void ResetHardDrop()
     {
         ActionMapper.hardDrop = false;
     }
-}
-
-
-public class InputActionMapper
-{
-    public bool softDrop;
-    public bool hardDrop;
-    public bool moveLeft;
-    public bool moveRight;
-    public bool rotate;
 }

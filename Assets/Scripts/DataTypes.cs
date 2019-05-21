@@ -10,12 +10,6 @@ public enum GameState
     Restart
 }
 
-public enum SceneOptions
-{
-    Menu,
-    Game
-}
-
 public enum ActionType
 {
     None,
@@ -122,4 +116,13 @@ public struct ScoreState
     {
         return new ScoreState(A.Score + B.Score, A.ClearedLines + B.ClearedLines, A.ComboLevel);
     }
+}
+
+public class InputActionMapper
+{
+    public bool softDrop;
+    public bool hardDrop;
+    public bool moveLeft;
+    public bool moveRight;
+    public bool rotate;
 }
