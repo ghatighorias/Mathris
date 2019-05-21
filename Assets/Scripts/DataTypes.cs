@@ -1,5 +1,14 @@
 ﻿using UnityEngine;
 
+public enum GameState
+{
+    None,
+    NotStarted,
+    Playing,
+    Paused,
+    Over
+}
+
 public enum SceneOptions
 {
     Menu,

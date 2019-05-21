@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3581677991879104561
+--- !u!1 &6637457044078552295
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,11 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3581677991879104563}
-  - component: {fileID: 3581677991879104562}
+  - component: {fileID: 6637457044078552289}
+  - component: {fileID: 6637457044078552291}
+  - component: {fileID: 6637457044078552290}
+  - component: {fileID: 6637457044078552316}
+  - component: {fileID: 6637457044078552288}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -17,27 +20,27 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3581677991879104563
+--- !u!4 &6637457044078552289
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3581677991879104561}
+  m_GameObject: {fileID: 6637457044078552295}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 575.8246, y: 238.12666, z: 18.603743}
+  m_LocalPosition: {x: 4.4989805, y: 3.1227763, z: -0.09426501}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3581677991879104562
+--- !u!114 &6637457044078552291
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3581677991879104561}
+  m_GameObject: {fileID: 6637457044078552295}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f197c75b50ab3f45bc149835ece4f49, type: 3}
@@ -45,3 +48,72 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuSceneName: Menu
   gameSceneName: Game
+--- !u!114 &6637457044078552290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6637457044078552295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abd389e6dba3caa47965f066551cce31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6637457044078552316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6637457044078552295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5c524d76bc784846bbe12b266625ba4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseMenu: {fileID: 0}
+  startMenu: {fileID: 0}
+--- !u!114 &6637457044078552288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6637457044078552295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25eb1bd4e60a94015b4596adc3785479, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  decreaseFallDelayByLevel: 0
+  fallDelay: 1
+  inUseFallDelay: 1
+  allowAutomaticDrop: 1
+  shapeSortingLayer: 2
+  guideShapeSortingLayer: 1
+  showLandingGuide: 1
+  softDropDelay: 0
+  hardDropDelay: 0
+  Numbers:
+  - {fileID: 21300000, guid: 8b947acd03854417fb9aec645fa2ce07, type: 3}
+  - {fileID: 21300000, guid: 69843b4f2641944aca4ea792f2b03449, type: 3}
+  - {fileID: 21300000, guid: 4af2bcaac0bde4737a1c5d64c45947a2, type: 3}
+  - {fileID: 21300000, guid: a783d901e45b144bb879a887b41f9069, type: 3}
+  - {fileID: 21300000, guid: ec05b2b8ced3a4f27930ac8b3e7e1f85, type: 3}
+  - {fileID: 21300000, guid: 5f22351a228a74168988ba786c868978, type: 3}
+  - {fileID: 21300000, guid: 4535985133512418bb85bb62dad24996, type: 3}
+  - {fileID: 21300000, guid: ffb5ae7ab30b949d3b87271a2a1c233e, type: 3}
+  - {fileID: 21300000, guid: 44b62ee0a88ee44ebb6f05a2fd1bb14c, type: 3}
+  - {fileID: 21300000, guid: d6c626ed149ca4d2d8cfa304c2c4a897, type: 3}
+  Operators:
+  - {fileID: 21300000, guid: 3c1a14ce8583f496a88417dbaf9689c6, type: 3}
+  - {fileID: 21300000, guid: 9e27c698b952d44bfa264cced8752b5d, type: 3}
+  - {fileID: 21300000, guid: 0ed8512484d274351b3166575fcb72fa, type: 3}
+  - {fileID: 21300000, guid: c253f9bb9deef48fca5e3491cf7db663, type: 3}
+  spawnLocationIndicator: {fileID: 0}
+  nextShapeLocationIndicator: {fileID: 0}
+  levelIndicatorText: {fileID: 0}
+  scoreIndicatorText: {fileID: 0}
+  linesIndicatorText: {fileID: 0}
+  gameManager: {fileID: 0}

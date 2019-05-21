@@ -46,36 +46,76 @@ public class Game : MonoBehaviour {
     Text scoreIndicatorTextComponent;
     Text linesIndicatorTextComponent;
 
-    [HideInInspector]
-    bool IsGameOver;
+    GameManager gameManager;
 
     public ScoreState scoreState;
 
     void Awake()
     {
+        if (gameManager == null)
+        {
+            gameManager = GetComponent<GameManager>();
+        }
+
         levelIndicatorTextComponent = levelIndicatorText?.GetComponent<Text>();
         scoreIndicatorTextComponent = scoreIndicatorText?.GetComponent<Text>();
         linesIndicatorTextComponent = linesIndicatorText?.GetComponent<Text>();
+
+        gameManager.OnGameStateChanged += GameManager_OnGameStateChanged;
+    }
+
+    private void GameManager_OnGameStateChanged(GameState newState)
+    {
+        switch (newState)
+        {
+            case GameState.NotStarted:
+                Initialize();
+                ActiveShape?.gameObject?.SetActive(false);
+                NextShape?.gameObject?.SetActive(false);
+                landingGuideShape?.gameObject?.SetActive(false);
+                gridHandler?.SetObstacleActive(false);
+                break;
+            case GameState.Playing:
+                ActiveShape?.gameObject?.SetActive(true);
+                NextShape?.gameObject?.SetActive(true);
+                landingGuideShape?.gameObject?.SetActive(true);
+                gridHandler?.SetObstacleActive(true);
+                break;
+            case GameState.Paused:
+                ActiveShape?.gameObject?.SetActive(false);
+                NextShape?.gameObject?.SetActive(false);
+                landingGuideShape?.gameObject?.SetActive(false);
+                gridHandler?.SetObstacleActive(false);
+                break;
+            case GameState.Over:
+                Destroy(ActiveShape?.gameObject);
+                Destroy(NextShape?.gameObject);
+                Destroy(landingGuideShape?.gameObject);
+                break;
+        }
     }
 
     void Start()
+    {
+        gridHandler = FindObjectOfType<GridHandler>();
+        inputHandler = GetComponent<InputHandler>();
+    }
+
+    private void Initialize()
     {
         inUseFallDelay = fallDelay;
         fallTimer = 0F;
         softDropTimer = 0F;
         hardDropTimer = 0F;
 
-        scoreState = new ScoreState(0, 0); 
-
-        gridHandler = FindObjectOfType<GridHandler>();
-        inputHandler = GetComponent<InputHandler>();
+        scoreState = new ScoreState(0, 0);
 
         SpawnRandomShape(true);
     }
 
     void Update()
     {
-        if (!IsGameOver)
+        if (gameManager.GameState == GameState.Playing)
         {
             skipFallForOneFrame = false;
 
@@ -101,7 +141,7 @@ public class Game : MonoBehaviour {
 
     void UpdatelandingGuideShape()
     {
-        landingGuideShape.gameObject.SetActive(showLandingGuide);
+        landingGuideShape?.gameObject.SetActive(showLandingGuide);
 
         var landingOffset = ActiveShape.GetShapeLandingOffset(gridHandler.Bottom);
         landingGuideShape.transform.position = ActiveShape.transform.position + landingOffset;
@@ -152,7 +192,7 @@ public class Game : MonoBehaviour {
 
             if (landingGuideShape)
             {
-                Destroy(landingGuideShape.gameObject);
+                Destroy(landingGuideShape?.gameObject);
             }
 
             landingGuideShape = ActiveShape.Clone(Color.grey, guideShapeSortingLayer);
@@ -262,7 +302,6 @@ public class Game : MonoBehaviour {
 
     void GameOver()
     {
-        IsGameOver = true;
-        Scenes.Instance.LoadLevel(SceneOptions.Menu);
+        gameManager.GameState = GameState.Over;
     }
 }

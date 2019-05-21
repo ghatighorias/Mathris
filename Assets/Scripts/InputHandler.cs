@@ -2,12 +2,30 @@
 
 public class InputHandler : MonoBehaviour
 {
+    GameManager gameManager;
+
     [HideInInspector]
     public InputActionMapper ActionMapper = new InputActionMapper();
 
+    void Awake()
+    {
+        if (gameManager == null)
+        {
+            gameManager = GetComponent<GameManager>();
+        }
+    }
+
     void Update()
     {
-        GetUserAction();
+        if (gameManager?.GameState == GameState.Playing)
+        {
+            GetUserAction();
+        }
+
+        if (Input.GetButtonDown("Pause"))
+        {
+            gameManager.TogglePauseGame();
+        }
     }
 
     public void GetUserAction()

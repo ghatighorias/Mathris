@@ -10,18 +10,27 @@ public class GridHandler : MonoBehaviour
     public Vector2Int blockSize = new Vector2Int(1, 1);
     public Color backgroundColor = Color.white; 
 
-
-    Transform gridObstacles;
     Dictionary<int, List<GameObject>> rowDictionary;
+
+    [SerializeField]
+    Transform gridObstacles;
 
     public float Top => transform.position.y + gridSize.y / 2;
     public float Bottom => transform.position.y - gridSize.y / 2;
     public float Left => transform.position.x - gridSize.x / 2;
     public float Right => transform.position.x + gridSize.x / 2;
 
-    private void Start()
+    public void SetObstacleActive(bool active)
     {
-        gridObstacles = transform.Find("Obstacles");
+        gridObstacles.gameObject.SetActive(active);
+    }
+
+    void Start()
+    {
+        if (gridObstacles == null)
+        {
+            gridObstacles = transform.Find("Obstacles");
+        }
 
         SetupGridBackground();
 
