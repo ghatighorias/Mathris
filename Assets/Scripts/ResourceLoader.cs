@@ -93,7 +93,7 @@ public static class ResourceLoader
                 return null;
         }
 
-        var shapeFullName = string.Format("Prefabs/{0}_{1}", shapePrefix, shapePostfix);
+        var shapeFullName = string.Format("Prefabs/Tiles/{0}_{1}", shapePrefix, shapePostfix);
         return Resources.Load<GameObject>(shapeFullName);
     }
 }

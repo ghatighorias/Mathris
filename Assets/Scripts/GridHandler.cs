@@ -15,10 +15,25 @@ public class GridHandler : MonoBehaviour
     [SerializeField]
     Transform gridObstacles;
 
+    [SerializeField]
+    Color grayoutColor = new Color(0,0,0,128);
+
     public float Top => transform.position.y + gridSize.y / 2;
     public float Bottom => transform.position.y - gridSize.y / 2;
     public float Left => transform.position.x - gridSize.x / 2;
     public float Right => transform.position.x + gridSize.x / 2;
+
+    public void GrayoutObstacles()
+    {
+        foreach (Transform obstacle in gridObstacles)
+        {
+            var spriteRenderer = obstacle.GetComponent<SpriteRenderer>();
+            if (spriteRenderer != null)
+            {
+                spriteRenderer.color = grayoutColor;
+            }
+        }
+    }
 
     public void ClearGrid()
     {

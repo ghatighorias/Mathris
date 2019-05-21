@@ -91,6 +91,8 @@ public class Game : MonoBehaviour {
                 Destroy(ActiveShape?.gameObject);
                 Destroy(NextShape?.gameObject);
                 Destroy(landingGuideShape?.gameObject);
+
+                gridHandler.GrayoutObstacles();
                 break;
             case GameState.Restart:
                 gridHandler.ClearGrid();

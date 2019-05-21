@@ -46,8 +46,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f197c75b50ab3f45bc149835ece4f49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuSceneName: Menu
-  gameSceneName: Game
 --- !u!114 &6637457044078552290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,7 +84,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25eb1bd4e60a94015b4596adc3785479, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  decreaseFallDelayByLevel: 0
+  decreaseFallDelayByLevel: 0.03
   fallDelay: 1
   inUseFallDelay: 1
   allowAutomaticDrop: 1
@@ -116,4 +114,3 @@ MonoBehaviour:
   levelIndicatorText: {fileID: 0}
   scoreIndicatorText: {fileID: 0}
   linesIndicatorText: {fileID: 0}
-  gameManager: {fileID: 0}

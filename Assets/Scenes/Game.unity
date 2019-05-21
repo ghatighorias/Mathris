@@ -175,6 +175,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114245811690858600, guid: 661bc4f5e11c643ee8dc36bd541f8f62,
+        type: 3}
+      propertyPath: grayoutColor.a
+      value: 0.5019608
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 661bc4f5e11c643ee8dc36bd541f8f62, type: 3}
 --- !u!1 &229306143
@@ -515,7 +520,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2007972272}
+      - m_Target: {fileID: 2007972271}
         m_MethodName: TogglePauseGame
         m_Mode: 1
         m_Arguments:
@@ -3112,6 +3117,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1976320831}
   m_CullTransparentMesh: 0
+--- !u!114 &2007972271 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6637457044078552291, guid: bd846475136979e4fbed161874102ad6,
+    type: 3}
+  m_PrefabInstance: {fileID: 6637457043799694668}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f197c75b50ab3f45bc149835ece4f49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2007972272 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6637457044078552316, guid: bd846475136979e4fbed161874102ad6,
@@ -3389,7 +3406,7 @@ PrefabInstance:
     - target: {fileID: 6637457044078552288, guid: bd846475136979e4fbed161874102ad6,
         type: 3}
       propertyPath: decreaseFallDelayByLevel
-      value: 0.01
+      value: 0.03
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd846475136979e4fbed161874102ad6, type: 3}

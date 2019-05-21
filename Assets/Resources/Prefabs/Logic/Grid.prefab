@@ -52,6 +52,7 @@ MonoBehaviour:
   blockSize: {x: 1, y: 1}
   backgroundColor: {r: 1, g: 1, b: 1, a: 0.5019608}
   gridObstacles: {fileID: 0}
+  grayoutColor: {r: 0, g: 0, b: 0, a: 0.5019608}
 --- !u!212 &212581497534730938
 SpriteRenderer:
   m_ObjectHideFlags: 0
